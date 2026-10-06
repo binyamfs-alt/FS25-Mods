@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="114">
+    <author>BinyamFS</author>
+    <version>1.0.0.1</version>
+    <title><en>Compact Controls</en></title>
+    <description><en>Reduces the upper-left controls help panel to 85 percent of its normal size, including text, key icons, spacing and vehicle diagram.</en></description>
+    <iconFilename>icon.dds</iconFilename>
+    <isSelectable>true</isSelectable>
+    <multiplayer supported="true"/>
+    <extraSourceFiles>
+        <sourceFile filename="CompactControls.lua"/>
+    </extraSourceFiles>
+</modDesc>

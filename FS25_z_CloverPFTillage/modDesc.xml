@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="110">
+    <author>BinyamFS</author>
+    <version>1.0.1.0</version>
+    <title><en>Clover and Alfalfa Precision Farming Tillage</en></title>
+    <description><en>Gives clover and alfalfa harvests the same Precision Farming tillage credit as grass harvests. Supports CLOVER, CLOVER2, CLOVER_WINDROW, ALFALFA and ALFALFA_WINDROW. Requires Precision Farming.</en></description>
+    <iconFilename>icon.png</iconFilename>
+    <multiplayer supported="true"/>
+    <extraSourceFiles>
+        <sourceFile filename="scripts/CloverPFTillage.lua"/>
+    </extraSourceFiles>
+</modDesc>
