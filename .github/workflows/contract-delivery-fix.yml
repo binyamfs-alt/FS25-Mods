@@ -1,0 +1,25 @@
+name: Validate contract delivery fix
+on:
+  push:
+    paths:
+      - 'FS25_z_ContractDeliveryFix/**'
+      - 'builds/FS25_z_ContractDeliveryFix.zip'
+      - 'tests/*contract_delivery*'
+      - 'tools/build_contract_delivery_fix.py'
+      - '.github/workflows/contract-delivery-fix.yml'
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Lua
+        run: sudo apt-get update -qq && sudo apt-get install -y lua5.1
+      - name: Check syntax
+        run: luac5.1 -p FS25_z_ContractDeliveryFix/scripts/ContractDeliveryFix.lua && luac5.1 -p tests/contract_delivery_fix_test.lua
+      - name: Exercise delivery accounting
+        run: lua5.1 tests/contract_delivery_fix_test.lua
+      - name: Check package
+        run: python3 tests/check_contract_delivery_package.py
+      - name: Check reproducible build
+        run: python3 tools/build_contract_delivery_fix.py && git diff --exit-code -- builds/FS25_z_ContractDeliveryFix.zip
