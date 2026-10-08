@@ -72,3 +72,5 @@ end
 
 -- Hook before UnloadTrigger changes the fill type; do not replace station sale logic.
 UnloadTrigger.addFillUnitFillLevel = Utils.overwrittenFunction(UnloadTrigger.addFillUnitFillLevel, Fix.addFillUnitFillLevel)
+
+Logging.info("[ContractDeliveryFix] 1.0.0.0 installed: contract credit before unload-trigger conversion")

@@ -17,3 +17,7 @@ Automated tests exercise conversion ratios, partial acceptance, multiple contrac
 This is a prospective conversion fix. It cannot recover historical uncredited sales, and does not claim to fix unrelated delivery failures or custom bale/pallet paths that bypass `UnloadTrigger.addFillUnitFillLevel`. It does not alter the map's production recipes.
 
 Implementation reference: [GIANTS FS25 UnloadTrigger](https://gdn.giants-software.com/documentation_scripting_fs25.php?category=1&class=129&version=script). The original trigger forwards converted type/quantity to the station; this utility consumes matching contract liters first.
+
+Reviewed Alma examples include lentils to soybeans at the Grain Mill, corn stalks
+to straw at the BGA, and spelt to barley at the wine cellar. These are evidence
+examples, not product-specific rules in the utility.
