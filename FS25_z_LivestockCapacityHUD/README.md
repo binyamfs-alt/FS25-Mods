@@ -1,24 +1,21 @@
-# Livestock Capacity HUD — 1.0.0.6
+# Livestock Capacity HUD — 1.0.0.7
 
-[Download the playable ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/livestock-capacity-hud-v1.0.0.6/FS25_z_LivestockCapacityHUD.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/livestock-capacity-hud-v1.0.0.6)
+Displays livestock trailer animal count, capacity and percentage. Protects against incompatible animal loading and preserves the loaded-animal trailer view.
 
-Displays livestock trailer animal count, capacity, and percentage in the game HUD. Adds protection against transferring incompatible animal types and keeps the trailer's loaded-animal view independent of the pen. Breeds of the same animal type remain allowed.
+## Butcher unloading correction
 
-## Installation
+Version 1.0.0.6 compared the trailer load with a single husbandry type during every transfer. This incorrectly blocked La Boucherie, whose Extended Production controller accepts multiple types and consumes trailer animals through `applySource`.
 
-Place `FS25_z_LivestockCapacityHUD.zip` in your active Farming Simulator 25 mods folder, retain its filename, and enable it.
+Version 1.0.0.7 leaves that production unload path to its original controller, including subtype, age and capacity validation. The exception requires both animal acceptance tables and applies only to source transfers. Target/loading actions and normal pen guards retain their existing protection. Saved animals are not modified by this update.
 
-## Authoritative state
+## Installation and build
 
-- Source: this directory. Author: BinyamFS. License: GPL-3.0-or-later; full license preserved in `modDesc.xml`.
-- Version: 1.0.0.6, as recorded in `modDesc.xml`.
-- Package: `builds/FS25_z_LivestockCapacityHUD.zip`; preserved byte-for-byte from the user-specified installed artifact during initial GitHub recovery on 2026-10-09. No previous GitHub source or release was found for this mod. Future changes start from this committed source.
-- SHA-256: `0358c85d22e406b1ad7eaa4d2648b8fdedb133224c56857b3ee9c86341e45d39`.
-- Release: `livestock-capacity-hud-v1.0.0.6`; workflow validates source/package correspondence before publication.
-- Debugging status: existing installed build preserved unchanged. Package integrity, descriptor references, source equality, and Lua syntax are checked for this release. No new in-game or multiplayer testing was performed during archival.
-- Known issues/limitations: dialog diagnostics and controller lookup logging remain enabled. No additional runtime issues are established by this archival verification.
-- Next work item: confirm transfer protection and HUD behavior in-game and in multiplayer, then remove temporary diagnostics in a new version if appropriate.
+Replace the existing `FS25_z_LivestockCapacityHUD.zip` with the ZIP from this branch's `builds/` directory after closing FS25, then restart and enable it. Keep its filename unchanged.
 
-## Version behavior
+Run `python tools/build_livestock_capacity_hud.py` and `python tools/verify_livestock_capacity_hud.py` from the checkout. Run `python tools/test_livestock_dialog.py` with `lupa` installed for the Lua 5.1 regression checks.
 
-1.0.0.6 rejects incompatible transfers before dialog success confirmation. 1.0.0.5 uses loaded animal types for the trailer view. Earlier versions added controller protection, selection checks, capacity display, and diagnostic logging. The original changelog remains in `modDesc.xml`.
+## Status
+
+Source and matching build are maintained in this GitHub branch. Author: BinyamFS. GPL-3.0-or-later; full license remains in modDesc.xml. The published 1.0.0.6 release remains historical; 1.0.0.7 is a development build pending in-game confirmation.
+
+Regression checks cover production unloading through both interception layers, continued rejection of incompatible loading, normal pen guards, cancellation, original arguments/returns and trailer type views. ZIP integrity and source equality are verified. Diagnostics remain enabled. Next: confirm goat unloading at La Boucherie in-game; multiplayer is unverified.

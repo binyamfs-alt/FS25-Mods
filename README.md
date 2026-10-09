@@ -1,5 +1,7 @@
 # BinyamFS Farming Simulator 25 Mods
 
+Development update: Livestock Capacity HUD **1.0.0.7** fixes blocked unloading at La Boucherie. [Branch build](builds/FS25_z_LivestockCapacityHUD.zip) · [source and test status](FS25_z_LivestockCapacityHUD/README.md). In-game confirmation is pending; the release links below identify the previously published versions.
+
 ## Utilities
 
 | Utility | Version | Download |

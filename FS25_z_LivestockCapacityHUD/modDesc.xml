@@ -678,10 +678,11 @@ Public License instead of this License.  But first, please read
 -->
 <modDesc descVersion="113">
     <author>BinyamFS</author>
-    <version>1.0.0.6</version>
+    <version>1.0.0.7</version>
     <title><en>Livestock Capacity HUD</en><de>Tiertransport-Kapazitätsanzeige</de></title>
     <description><en><![CDATA[Displays livestock trailer animal counts and live capacity in the game capacity HUD. Prevents loading different animal types together. Mixed breeds of the same type are allowed.
 
+Changelog 1.0.0.7: Allow unloading into multi-type animal-input productions while retaining trailer loading protection.
 Changelog 1.0.0.6: Reject incompatible transfers inside the dialog before success confirmation.
 Changelog 1.0.0.5: Trailer view uses loaded animal types independently of the pen.
 Changelog 1.0.0.4: Diagnostic controller lookup logging.
@@ -696,6 +697,7 @@ Changelog 1.0.0.1:
 - Reject wrong-type loading at the transfer button.
 - Guard empty selections and full-trailer loading.]]></en><de><![CDATA[Zeigt Tieranzahl und aktuelle Kapazität im Spiel-HUD. Verhindert das gemeinsame Laden verschiedener Tierarten. Verschiedene Rassen derselben Tierart bleiben erlaubt.
 
+Changelog 1.0.0.7: Allow unloading into multi-type animal-input productions while retaining trailer loading protection.
 Changelog 1.0.0.6: Reject incompatible transfers inside the dialog before success confirmation.
 Changelog 1.0.0.5: Trailer view uses loaded animal types independently of the pen.
 Changelog 1.0.0.4: Diagnostic controller lookup logging.

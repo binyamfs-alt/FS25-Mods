@@ -3,6 +3,17 @@ LivestockAnimalDialogGuard = {}
 local G = LivestockAnimalDialogGuard
 local specializationName = g_currentModName .. ".livestockCapacityHUD"
 
+-- Extended animal-input productions (including La Boucherie) consume animals
+-- through applySource. Their acceptance tables support several types, so the
+-- single-type husbandry accessor is not a valid trailer-loading check here.
+-- Leave subtype, age and free-slot validation to the production controller.
+function G.isProductionUnload(controller, sourceAction)
+    local h = controller and controller.husbandry
+    return sourceAction and h ~= nil
+        and type(h.animalsTypeData) == "table"
+        and type(h.animalSubTypeToFillType) == "table"
+end
+
 function G.installController(screen)
     local c = screen.controller
     if c == nil or c.trailer == nil or c.husbandry == nil or c.bfsGuardInstalled then return end
@@ -34,8 +45,12 @@ function G.installController(screen)
     end
     for _, method in ipairs({"applySource", "applyTarget"}) do
         local original = c[method]
+        local sourceAction = method == "applySource"
         if type(original) == "function" then
             c[method] = function(controller, ...)
+                if G.isProductionUnload(controller, sourceAction) then
+                    return original(controller, ...)
+                end
                 local spec = g_specializationManager:getSpecializationObjectByName(specializationName)
                 local animalType = controller.husbandry:getAnimalTypeIndex()
                 if spec ~= nil and not spec.isTypeAllowed(controller.trailer, animalType) then
@@ -113,11 +128,13 @@ if AnimalScreen ~= nil then
     -- Native confirmation callbacks announce success independently of the
     -- controller's return value. Reject here before that success path runs.
     for _, method in ipairs({"onYesNoSource", "onYesNoTarget"}) do
+        local sourceAction = method == "onYesNoSource"
         if type(AnimalScreen[method]) == "function" then
             AnimalScreen[method] = Utils.overwrittenFunction(AnimalScreen[method], function(screen, superFunc, yes, ...)
                 local c = screen.controller
                 local spec = g_specializationManager:getSpecializationObjectByName(specializationName)
                 if yes and c ~= nil and c.trailer ~= nil and c.husbandry ~= nil
+                    and not G.isProductionUnload(c, sourceAction)
                     and spec ~= nil and not spec.isTypeAllowed(c.trailer, c.husbandry:getAnimalTypeIndex()) then
                     InfoDialog.show(g_i18n:getText("bfs_trailerLoaded"))
                     return
