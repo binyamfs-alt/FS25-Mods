@@ -1,0 +1,35 @@
+name: Release Contract Delivery Fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'FS25_z_ContractDeliveryFix/**'
+      - '.github/workflows/release-contract-delivery-fix.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build playable ZIP
+        run: |
+          rm -f FS25_z_ContractDeliveryFix.zip
+          cd FS25_z_ContractDeliveryFix
+          zip -r ../FS25_z_ContractDeliveryFix.zip modDesc.xml icon.png scripts/ContractDeliveryFix.lua
+      - name: Create GitHub release if missing
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG='contract-delivery-fix-v1.0.0.0'
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists."
+          else
+            gh release create "$TAG" FS25_z_ContractDeliveryFix.zip \
+              --target "$GITHUB_SHA" \
+              --title 'Contract Delivery Fix 1.0.0.0' \
+              --notes 'Credits matching active delivery contracts using the original product before unload-trigger conversion. Remaining surplus follows normal conversion and sale. No crop or map configuration required.'
+          fi

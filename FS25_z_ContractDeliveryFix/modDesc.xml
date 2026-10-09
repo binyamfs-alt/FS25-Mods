@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="110">
+    <author>BinyamFS</author>
+    <version>1.0.0.0</version>
+    <title><en>Contract Delivery Before Conversion</en></title>
+    <description><en>Credits matching active delivery contracts using the original product before unload-trigger conversion. Remaining surplus follows normal conversion and sale. No crop or map configuration required.</en></description>
+    <iconFilename>icon.png</iconFilename>
+    <multiplayer supported="true"/>
+    <extraSourceFiles><sourceFile filename="scripts/ContractDeliveryFix.lua"/></extraSourceFiles>
+</modDesc>
