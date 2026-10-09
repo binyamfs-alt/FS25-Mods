@@ -4,6 +4,7 @@
 
 | Utility | Version | Download |
 | --- | --- | --- |
+| Livestock Capacity HUD | 1.0.0.6 | [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/livestock-capacity-hud-v1.0.0.6/FS25_z_LivestockCapacityHUD.zip), [release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/livestock-capacity-hud-v1.0.0.6), [status and source](FS25_z_LivestockCapacityHUD/README.md) |
 | Clover and Alfalfa Precision Farming Tillage | 1.0.1.0 | [Latest utility release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/clover-pf-tillage-v1.0.1.0) |
 | Compact Controls | 1.0.0.1 | [Latest utility release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/compact-controls-v1.0.0.1) |
 | BinyamFS Edition HUD for Courseplay | 1.1.0.0 | [Latest companion release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/courseplay-binyamfs-v1.1.0.0) |
