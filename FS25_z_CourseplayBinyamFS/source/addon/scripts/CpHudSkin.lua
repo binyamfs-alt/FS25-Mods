@@ -56,7 +56,7 @@ local function applyElement(element, selected)
             element.skinOriginalColor = current
         end
         local color = selected and (element.skinHeaderPanel and {0, 0, 0, 0.88} or element.skinInfoPanel and {0, 0, 0, 0.67} or skinColor(element.skinOriginalColor)) or element.skinOriginalColor
-        if selected and element.skinCourseVisibility then
+        if selected and (element.skinCourseVisibility or element.skinPlayControl) then
             local original=element.skinOriginalColor
             if sameColor(original,{0.2,0.2,0.2,0.9}) then color={1,1,1,1}
             elseif sameColor(original,{0.6,0.6,0,0.9}) then color={1,0.82,0.22,1}
@@ -382,6 +382,7 @@ function CpHudSkin.prepareLayout(hud)
             bounds(page.timeRemainingText,rightX,rowY(5),column)
         end
     end
+    if hud.onOffButton then hud.onOffButton.skinPlayControl=true end
     add(hud.clearCourseBtn); add(hud.startStopRecordingBtn)
     for _,page in ipairs(pages) do
         if page.courseVisibilityBtn then page.courseVisibilityBtn.skinCourseVisibility=true end

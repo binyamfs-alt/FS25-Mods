@@ -27,3 +27,5 @@ Development build 1.0.1.3: fixed-width compact status window, equal 4px card ins
 Development build 1.0.1.4: current vehicle status text green, other vehicle text white; use overlay setters for status-panel drawing and force dark panel colors during rendering. Tests and TestRunner pass; in-game verification pending.
 
 Development build 1.0.1.5: opaque 1px card separators and white/yellow/blue/green course-visibility eye states. Logs native supplied message count versus visible card count to investigate missing forage wagon warning. Tests and TestRunner pass; runtime diagnosis pending.
+
+Development build 1.0.1.6 restores green active and white inactive play icons. Missing forage wagon blocked warning remains under investigation; message diagnostics require an in-game run.
