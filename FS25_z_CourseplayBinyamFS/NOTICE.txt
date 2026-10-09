@@ -1,0 +1,25 @@
+BinyamFS Edition HUD for Courseplay
+Mod for Farming Simulator
+
+Copyright (C) 2026 BinyamFS. Companion code and original generated icon:
+GNU General Public License version 3 (GPL-3.0-only). The full license is included below in the packaged README.txt.
+You may modify and redistribute this companion under GPLv3. No warranty.
+
+Courseplay is developed by Courseplay.devTeam and contributors and is licensed
+under GPLv3. Download Courseplay separately from its official sources:
+https://github.com/Courseplay/Courseplay_FS25
+This is an unofficial companion, not endorsed by Courseplay or GIANTS Software.
+Courseplay code, textures, and game assets are not bundled in the companion ZIP.
+Runtime references use the user's separately installed Courseplay and game.
+SAM styling is a visual reference to BinyamFS Storage Alert Monitor; no SAM
+files are bundled. The mod icon and clipboard drawing are original.
+
+Preferred source for modifications and the icon generator are provided in
+BinyamFS-Edition-Courseplay-Source.zip alongside the installable ZIP. Build:
+install Python and Pillow, then run python build.py in the source directory.
+Keep that source archive and GPL text available wherever the mod is offered.
+
+GIANTS' published mod terms require free, noncommercial distribution and the
+notice above. Those terms govern Farming Simulator use/distribution; they do
+not replace or add restrictions to the GPL grant for the companion code.
+https://www.farming-simulator.com/termsModHub.php?country=us&lang=en
