@@ -3,13 +3,13 @@
     <metaData>
         <version>0.9.22</version>
         <builddate>2026-09-29 01:39:25</builddate>
-        <timeofexecution>2026-10-08 21:57:20</timeofexecution>
-        <executionduration>0.081 sec</executionduration>
+        <timeofexecution>2026-10-08 22:46:09</timeofexecution>
+        <executionduration>0.102 sec</executionduration>
         <config>
-            <testdatapath>C:/Users/benbu/AppData/Local/Packages/sandbox.{647941f7-bdc4-4595-b10c-4af47fc2b62b}/AC/Temp/_MEI332842/additionals/FS25_z_CourseplayBinyamFS_tmp_41440</testdatapath>
+            <testdatapath>C:/Users/benbu/AppData/Local/Packages/sandbox.{b9d503b9-828d-4d88-bc77-50eaa83ec7e6}/AC/Temp/_MEI534562/additionals/FS25_z_CourseplayBinyamFS_tmp_53684</testdatapath>
             <gamepath>D:/Steam/steamapps/common/Farming Simulator 25</gamepath>
             <output>
-                <directory>C:/Users/benbu/Documents/Codex/2026-10-08/i-w/outputs/CP-TestRunner-1011</directory>
+                <directory>C:/Users/benbu/Documents/Codex/2026-10-08/i-w/outputs/CP-TestRunner-1012</directory>
                 <formats>
                     <format autoopenreport="False">XML</format>
                     <format autoopenreport="True">HTML</format>
