@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="113">
     <author>BinyamFS</author>
-    <version>1.0.1.8</version>
+    <version>1.1.0.0</version>
     <title><en>BinyamFS Edition HUD For Courseplay</en><de>BinyamFS Edition HUD Für Courseplay</de></title>
     <description>
         <en><![CDATA[Mod for Farming Simulator. Unofficial companion; GPLv3, no warranty.
 Adds an optional SAM-styled Courseplay HUD with uniform text, compact vehicle names and button borders. Select BinyamFS Edition in Courseplay User Settings. Hold Left Alt over the HUD for tooltips. Requires Courseplay installed separately.
 
-Changelog 1.0.1.8:
-- Refined layout, spacing, rounded controls and night-time colors.
-- Added vehicle nicknames, implement names and contextual tooltips.
-- Updated package and compressed icon for TestRunner validation.]]></en>
+Changelog 1.1.0.0:
+- Added compact fixed-width status cards with green current-vehicle messages and white other-vehicle messages.
+- Restored white/yellow/blue/green course-view icons and green active play icon.
+- Added opaque 1px status separators; removed diagnostic logging.]]></en>
         <de><![CDATA[Mod for Farming Simulator. Inoffizielles Add-on; GPLv3, ohne Gewährleistung.
 Fügt ein optionales Courseplay-HUD im SAM-Stil mit einheitlicher Schrift, kompakten Fahrzeugnamen und abgerundeten Schaltflächen hinzu. BinyamFS Edition in den Courseplay-Benutzereinstellungen auswählen. Für Tooltips die linke Alt-Taste über dem HUD gedrückt halten. Courseplay muss separat installiert sein.
 
-Changelog 1.0.1.8:
+Changelog 1.1.0.0:
 - Layout, Abstände, Schaltflächen und Nachtfarben überarbeitet.
 - Fahrzeug-Spitznamen, Gerätenamen und Tooltips hinzugefügt.
 - Paket und komprimiertes Symbol für TestRunner aktualisiert.]]></de>

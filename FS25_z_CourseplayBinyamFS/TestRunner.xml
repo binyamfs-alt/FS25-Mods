@@ -3,13 +3,13 @@
     <metaData>
         <version>0.9.22</version>
         <builddate>2026-09-29 01:39:25</builddate>
-        <timeofexecution>2026-10-08 22:46:09</timeofexecution>
-        <executionduration>0.102 sec</executionduration>
+        <timeofexecution>2026-10-09 02:07:08</timeofexecution>
+        <executionduration>0.078 sec</executionduration>
         <config>
-            <testdatapath>C:/Users/benbu/AppData/Local/Packages/sandbox.{b9d503b9-828d-4d88-bc77-50eaa83ec7e6}/AC/Temp/_MEI534562/additionals/FS25_z_CourseplayBinyamFS_tmp_53684</testdatapath>
+            <testdatapath>C:/Users/benbu/AppData/Local/Packages/sandbox.{8715ca0c-9688-4b15-970d-8fb03e5e7050}/AC/Temp/_MEI293922/additionals/FS25_z_CourseplayBinyamFS_tmp_7376</testdatapath>
             <gamepath>D:/Steam/steamapps/common/Farming Simulator 25</gamepath>
             <output>
-                <directory>C:/Users/benbu/Documents/Codex/2026-10-08/i-w/outputs/CP-TestRunner-1012</directory>
+                <directory>C:/Users/benbu/Documents/Codex/2026-10-08/i-w/outputs/Livestock-TestRunner</directory>
                 <formats>
                     <format autoopenreport="False">XML</format>
                     <format autoopenreport="True">HTML</format>
@@ -56,6 +56,10 @@
             </testGroup>
             <testGroup name="PublicLuaCheck" passed="True">
                 <!--no problems found-->
+                <warning>LUA Warnings<fileWithWarnings file="FS25_z_CourseplayBinyamFS_tmp_7376/scripts/CpHudSkin.lua">
+                        <783:1:[Long-Line]LineLongerThan200Characters />
+                    </fileWithWarnings>
+                </warning>
             </testGroup>
             <testGroup name="EditorCheck" passed="True">
                 <!--no problems found-->

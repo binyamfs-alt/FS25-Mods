@@ -6,7 +6,7 @@ An unofficial Courseplay companion with SAM styling, consistent buttons, compact
 
 ## Changes in v1.1.0.0
 
-Adds a compact status panel with fixed-width, full-width message cards that grow downward. Current-vehicle messages are green; other-vehicle messages are white. Opaque 1px separators keep rows distinct. Course visibility retains white/yellow/blue/green states, and the play icon is green while active. Temporary diagnostic logging has been removed. The status layout and multiple messages were verified in game.
+Styles the separate Courseplay information HUD with a dark header, uniform rows and a message area that expands for longer status text. In-game verification pending.
 
 ## Downloads and installation
 
@@ -21,4 +21,3 @@ The complete preferred source is in [BinyamFS-Edition-Courseplay-Source.zip](Bin
 ## Validation
 
 GIANTS TestRunner 0.9.22 passed all modules for the installable ZIP. Checked against Courseplay 8.1.0.3. See [TestRunner report](TestRunner.xml) and [SHA256SUMS](SHA256SUMS).
-
