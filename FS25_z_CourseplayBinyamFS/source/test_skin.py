@@ -556,7 +556,8 @@ CpHudSkin.prepareInfoLayout(info)
 assert(text.textColor[1]==1 and text.textColor[2]==1 and text.textColor[3]==1)
 local fixedWidth=root.skinPanelBounds[3]
 assert(math.abs(fixedWidth-350/g_screenWidth)<0.000001)
-assert(icon.skinInfoCardBounds[3]==fixedWidth-8/g_screenWidth)
+assert(icon.skinInfoCardBounds[1]==root.skinPanelBounds[1])
+assert(icon.skinInfoCardBounds[3]==fixedWidth)
 local oneHeight=root.skinPanelBounds[4]
 info.activeTexts=3; text.text='Short'; CpHudSkin.prepareInfoLayout(info)
 assert(root.skinPanelBounds[3]==fixedWidth)

@@ -31,3 +31,5 @@ Development build 1.0.1.5: opaque 1px card separators and white/yellow/blue/gree
 Development build 1.0.1.6 restores green active and white inactive play icons. Missing forage wagon blocked warning remains under investigation; message diagnostics require an in-game run.
 
 Development build 1.0.1.7 removes extra header-to-card padding, leaving the opaque 1px separator. User confirmed multiple blocked messages now appear. Lua checks pass.
+
+Development build 1.0.1.8: status cards and their separator span the exact header width. Internal icon/text padding and card height remain consistent. Lua checks pass; diagnostic logging retained until final release check.

@@ -778,7 +778,7 @@ function CpHudSkin.prepareInfoLayout(hud)
     for i,line in ipairs(hud.infoTextsElements or {}) do
         local y=top-headerHeight-py-i*height-(i-1)*py
         line.vehicleBtn.skinLayoutBounds={left+inset,y,cell,height}
-        line.vehicleBtn.skinInfoCardBounds={left+inset,y,width-2*inset,height}
+        line.vehicleBtn.skinInfoCardBounds={left,y,width,height}
         line.text.skinGridText=true
         local currentVehicle=CourseplayBinyamFS and CourseplayBinyamFS.cp and CourseplayBinyamFS.cp.CpUtil and CourseplayBinyamFS.cp.CpUtil.getCurrentVehicle and CourseplayBinyamFS.cp.CpUtil.getCurrentVehicle()
         -- CP exposes its classes in the mod environment; the info record keeps
