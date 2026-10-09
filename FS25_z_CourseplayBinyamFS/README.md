@@ -1,8 +1,12 @@
-# BinyamFS Edition HUD for Courseplay v1.0.1.0
+# BinyamFS Edition HUD for Courseplay v1.0.1.1
 
 Mod for Farming Simulator
 
 An unofficial Courseplay companion with SAM styling, consistent buttons, compact vehicle names, custom vehicle names, implement names, and contextual tooltips. Courseplay remains separately updateable.
+
+## Changes in v1.0.1.1
+
+Aligns the remaining-time display with Nearest Waypoint as plain text over the HUD background.
 
 ## Downloads and installation
 
