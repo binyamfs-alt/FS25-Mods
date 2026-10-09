@@ -21,3 +21,5 @@ The complete preferred source is in [BinyamFS-Edition-Courseplay-Source.zip](Bin
 ## Validation
 
 GIANTS TestRunner 0.9.22 passed all modules for the installable ZIP. Checked against Courseplay 8.1.0.3. See [TestRunner report](TestRunner.xml) and [SHA256SUMS](SHA256SUMS).
+
+Development build 1.0.1.3: fixed-width compact status window, equal 4px card insets and full-width message cards. Grows downward as messages are added. Lua 5.1 checks and TestRunner pass; in-game appearance pending verification.

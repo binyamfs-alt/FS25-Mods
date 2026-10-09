@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<modDesc descVersion="113">
+    <author>BinyamFS</author>
+    <version>1.0.1.3</version>
+    <title><en>BinyamFS Edition HUD For Courseplay</en><de>BinyamFS Edition HUD Für Courseplay</de></title>
+    <description>
+        <en><![CDATA[Mod for Farming Simulator. Unofficial companion; GPLv3, no warranty.
+Adds an optional SAM-styled Courseplay HUD with uniform text, compact vehicle names and button borders. Select BinyamFS Edition in Courseplay User Settings. Hold Left Alt over the HUD for tooltips. Requires Courseplay installed separately.
+
+Changelog 1.0.1.3:
+- Refined layout, spacing, rounded controls and night-time colors.
+- Added vehicle nicknames, implement names and contextual tooltips.
+- Updated package and compressed icon for TestRunner validation.]]></en>
+        <de><![CDATA[Mod for Farming Simulator. Inoffizielles Add-on; GPLv3, ohne Gewährleistung.
+Fügt ein optionales Courseplay-HUD im SAM-Stil mit einheitlicher Schrift, kompakten Fahrzeugnamen und abgerundeten Schaltflächen hinzu. BinyamFS Edition in den Courseplay-Benutzereinstellungen auswählen. Für Tooltips die linke Alt-Taste über dem HUD gedrückt halten. Courseplay muss separat installiert sein.
+
+Changelog 1.0.1.3:
+- Layout, Abstände, Schaltflächen und Nachtfarben überarbeitet.
+- Fahrzeug-Spitznamen, Gerätenamen und Tooltips hinzugefügt.
+- Paket und komprimiertes Symbol für TestRunner aktualisiert.]]></de>
+    </description>
+    <iconFilename>icon_CourseplayBinyamFS.dds</iconFilename>
+    <multiplayer supported="true"/>
+    <dependencies><dependency>FS25_Courseplay</dependency></dependencies>
+    <l10n>
+        <text name="BFS_HUD_SKIN_TITLE"><en>HUD skin</en></text>
+        <text name="BFS_HUD_SKIN_TOOLTIP"><en>Choose the Courseplay HUD appearance. BinyamFS Edition adds SAM styling, uniform text and button borders. Saved for this user.</en></text>
+        <text name="BFS_HUD_SKIN_COURSEPLAY"><en>Courseplay</en></text>
+        <text name="BFS_HUD_SKIN_BINYAMFS"><en>BinyamFS Edition</en></text>
+    </l10n>
+    <extraSourceFiles>
+        <sourceFile filename="scripts/CpHudSkin.lua"/>
+        <sourceFile filename="scripts/CourseplayBinyamFS.lua"/>
+    </extraSourceFiles>
+</modDesc>
