@@ -1,0 +1,27 @@
+name: Publish verified Livestock Capacity HUD 1.0.0.7
+on:
+  push:
+    branches: ['release/livestock-capacity-hud-1.0.0.7']
+    paths: ['.github/workflows/publish-verified-livestock-capacity-hud-v1.0.0.7.yml']
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 39e517b3e62c32b2c0d44f2a86077ebf8145e046
+      - name: Validate ZIP integrity
+        run: python3 -c "import zipfile; z=zipfile.ZipFile('builds/FS25_z_LivestockCapacityHUD.zip'); assert z.testzip() is None"
+      - name: Publish verified source and package
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag='livestock-capacity-hud-v1.0.0.7'
+          if gh release view "$tag" >/dev/null 2>&1; then
+            gh release upload "$tag" 'builds/FS25_z_LivestockCapacityHUD.zip' --clobber
+            gh release edit "$tag" --draft=false --latest --title 'Livestock Capacity HUD 1.0.0.7' --notes 'Fix valid animal unloading at La Boucherie and other multi-type animal-input productions. Preserve native subtype, age and capacity checks and incompatible trailer-loading protection. User confirmed working in-game. Multiplayer remains unverified.'
+          else
+            gh release create "$tag" 'builds/FS25_z_LivestockCapacityHUD.zip' --target '39e517b3e62c32b2c0d44f2a86077ebf8145e046' --latest --title 'Livestock Capacity HUD 1.0.0.7' --notes 'Fix valid animal unloading at La Boucherie and other multi-type animal-input productions. Preserve native subtype, age and capacity checks and incompatible trailer-loading protection. User confirmed working in-game. Multiplayer remains unverified.'
+          fi
