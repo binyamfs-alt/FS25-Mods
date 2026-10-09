@@ -545,6 +545,15 @@ CpHudSkin.prepareInfoLayout(info); CpHudSkin.apply(root,title)
 assert(root.overlay.r==0 and root.overlay.a==0.67)
 assert(header.overlay.r==0 and header.overlay.a==0.88)
 assert(text.skinLayoutBounds[2]==icon.skinLayoutBounds[2])
+local vehicle={}
+CourseplayBinyamFS.cp.CpUtil={}
+CourseplayBinyamFS.cp.CpUtil.getCurrentVehicle=function() return vehicle end
+info.infoTextsElements[1].lastInfo={vehicle=vehicle}
+CpHudSkin.prepareInfoLayout(info)
+assert(text.textColor[2]==0.85 and text.textColor[1]==0.35)
+info.infoTextsElements[1].lastInfo.vehicle={}
+CpHudSkin.prepareInfoLayout(info)
+assert(text.textColor[1]==1 and text.textColor[2]==1 and text.textColor[3]==1)
 local fixedWidth=root.skinPanelBounds[3]
 assert(math.abs(fixedWidth-350/g_screenWidth)<0.000001)
 assert(icon.skinInfoCardBounds[3]==fixedWidth-8/g_screenWidth)

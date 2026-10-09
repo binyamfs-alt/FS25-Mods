@@ -69,6 +69,7 @@ function M.install(cp)
             return false
         end
     end
+    M.cp=cp
     -- These aliases belong to this add-on's script environment only.
     g_Courseplay, CpBaseHud, CpTextHudElement = cp.g_Courseplay, cp.CpBaseHud, cp.CpTextHudElement
 

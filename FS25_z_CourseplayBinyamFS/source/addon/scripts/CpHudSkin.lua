@@ -700,9 +700,13 @@ function CpHudSkin.setRenderBounds(element,bounds)
             return element.skinOriginalRender(overlay,...)
         end
         local x,y,w,h=overlay.x,overlay.y,overlay.width,overlay.height
-        overlay.x,overlay.y,overlay.width,overlay.height=unpack(element.skinRenderBounds)
+        local b=element.skinRenderBounds
+        overlay:setPosition(b[1],b[2]); overlay:setDimension(b[3],b[4])
+        if element.skinInfoPanel or element.skinHeaderPanel then
+            overlay:setColor(0,0,0,element.skinHeaderPanel and 0.88 or 0.67)
+        end
         element.skinOriginalRender(overlay,...)
-        overlay.x,overlay.y,overlay.width,overlay.height=x,y,w,h
+        overlay:setPosition(x,y); overlay:setDimension(w,h)
     end
 end
 
@@ -764,6 +768,12 @@ function CpHudSkin.prepareInfoLayout(hud)
         line.vehicleBtn.skinLayoutBounds={left+inset,y,cell,height}
         line.vehicleBtn.skinInfoCardBounds={left+inset,y,width-2*inset,height}
         line.text.skinGridText=true
+        local currentVehicle=CourseplayBinyamFS and CourseplayBinyamFS.cp and CourseplayBinyamFS.cp.CpUtil and CourseplayBinyamFS.cp.CpUtil.getCurrentVehicle and CourseplayBinyamFS.cp.CpUtil.getCurrentVehicle()
+        -- CP exposes its classes in the mod environment; the info record keeps
+        -- the exact owning vehicle, so switching vehicles updates immediately.
+        if currentVehicle == nil and CpUtil ~= nil and CpUtil.getCurrentVehicle ~= nil then currentVehicle=CpUtil.getCurrentVehicle() end
+        local current=line.lastInfo ~= nil and line.lastInfo.vehicle == currentVehicle and currentVehicle ~= nil
+        line.text:setTextColorChannels(current and 0.35 or 1, current and 0.85 or 1, current and 0.25 or 1, 1)
         line.text.skinLayoutBounds={left+inset+cell+gap,y,width-2*inset-cell-gap,height}
         line.text.skinPreserveCase=true
     end
