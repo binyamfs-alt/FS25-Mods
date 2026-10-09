@@ -56,6 +56,13 @@ local function applyElement(element, selected)
             element.skinOriginalColor = current
         end
         local color = selected and (element.skinHeaderPanel and {0, 0, 0, 0.88} or element.skinInfoPanel and {0, 0, 0, 0.67} or skinColor(element.skinOriginalColor)) or element.skinOriginalColor
+        if selected and element.skinCourseVisibility then
+            local original=element.skinOriginalColor
+            if sameColor(original,{0.2,0.2,0.2,0.9}) then color={1,1,1,1}
+            elseif sameColor(original,{0.6,0.6,0,0.9}) then color={1,0.82,0.22,1}
+            elseif sameColor(original,{0,0.4,0.6,1}) then color={0.15,0.65,1,1}
+            elseif sameColor(original,{0,0.6,0,0.9}) then color={0.35,0.85,0.25,1} end
+        end
         overlay:setColor(unpack(color))
         element.skinAppliedColor = {unpack(color)}
     end
@@ -165,6 +172,9 @@ function CpHudSkin.drawButtonBorder(element)
     rect(x+px,y+height-2*py,px,py,color[1],color[2],color[3],0.65)
     rect(x+width-2*px,y+py,px,py,0.025,0.03,0.025,1)
     rect(x+width-2*px,y+height-2*py,px,py,color[1],color[2],color[3],0.65)
+    if element.skinInfoCardBounds then
+        rect(x,y+height,width,py,0,0,0,1)
+    end
 end
 
 local shortBrands = {
@@ -374,6 +384,7 @@ function CpHudSkin.prepareLayout(hud)
     end
     add(hud.clearCourseBtn); add(hud.startStopRecordingBtn)
     for _,page in ipairs(pages) do
+        if page.courseVisibilityBtn then page.courseVisibilityBtn.skinCourseVisibility=true end
         if page.visible then add(page.courseVisibilityBtn) end
         bounds(page.clearCacheBtn,right-2*toolbarCell-gap,rowY(1),toolbarCell)
         bounds(page.copyButton,right-toolbarCell,rowY(1),toolbarCell)
@@ -750,7 +761,7 @@ function CpHudSkin.prepareInfoLayout(hud)
     local width=math.min(350*px,1-12*px)
     local left=math.max(6*px,math.min(root.overlay.x,1-width-6*px))
     local count=hud.activeTexts or 0
-    local panelHeight=headerHeight+(count>0 and 8*py+count*height+math.max(0,count-1)*2*py or 0)
+    local panelHeight=headerHeight+(count>0 and 8*py+count*height+math.max(0,count-1)*py or 0)
     root.skinPanelBounds={left,top,width,panelHeight}
     CpHudSkin.setRenderBounds(root,root.skinPanelBounds)
     for _,child in ipairs(root.children or {}) do
@@ -764,7 +775,7 @@ function CpHudSkin.prepareInfoLayout(hud)
         end
     end
     for i,line in ipairs(hud.infoTextsElements or {}) do
-        local y=top-headerHeight-4*py-i*height-(i-1)*2*py
+        local y=top-headerHeight-4*py-i*height-(i-1)*py
         line.vehicleBtn.skinLayoutBounds={left+inset,y,cell,height}
         line.vehicleBtn.skinInfoCardBounds={left+inset,y,width-2*inset,height}
         line.text.skinGridText=true

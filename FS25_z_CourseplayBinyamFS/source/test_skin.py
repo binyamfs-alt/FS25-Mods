@@ -560,7 +560,7 @@ assert(icon.skinInfoCardBounds[3]==fixedWidth-8/g_screenWidth)
 local oneHeight=root.skinPanelBounds[4]
 info.activeTexts=3; text.text='Short'; CpHudSkin.prepareInfoLayout(info)
 assert(root.skinPanelBounds[3]==fixedWidth)
-assert(math.abs(root.skinPanelBounds[4]-oneHeight-52/g_screenHeight)<0.000001)
+assert(math.abs(root.skinPanelBounds[4]-oneHeight-50/g_screenHeight)<0.000001)
 assert(root.skinPanelBounds[2]==0.8)
 local originalX=root.overlay.x
 root.overlay.x=0.8; CpHudSkin.prepareInfoLayout(info)

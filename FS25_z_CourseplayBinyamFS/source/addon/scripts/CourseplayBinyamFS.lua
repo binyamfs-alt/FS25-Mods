@@ -170,6 +170,18 @@ function M.install(cp)
     local updateInfo = cp.CpHudInfoTexts.update
     cp.CpHudInfoTexts.update = function(hud, ...)
         updateInfo(hud, ...)
+        if CpHudSkin.isSelected() and cp.g_infoTextManager ~= nil then
+            local records=cp.g_infoTextManager:getActiveInfoTexts()
+            local summary={}
+            for _,record in ipairs(records) do
+                table.insert(summary,(record.vehicle:getName() or '?')..': '..record.text)
+            end
+            local signature=table.concat(summary,' | ')
+            if hud.skinInfoDiagnostic ~= signature then
+                hud.skinInfoDiagnostic=signature
+                print('[BinyamFS HUD] CP supplies '..#records..' messages; panel has '..tostring(hud.activeTexts)..' cards: '..signature)
+            end
+        end
         CpHudSkin.prepareInfoLayout(hud)
         CpHudSkin.apply(hud.baseHud, hud.skinHeaderText)
     end
