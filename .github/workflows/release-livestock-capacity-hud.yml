@@ -1,0 +1,39 @@
+name: Release Livestock Capacity HUD
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'FS25_z_LivestockCapacityHUD/**'
+      - 'builds/FS25_z_LivestockCapacityHUD.zip'
+      - 'tools/verify_livestock_capacity_hud.py'
+      - '.github/workflows/release-livestock-capacity-hud.yml'
+  pull_request:
+    paths:
+      - 'FS25_z_LivestockCapacityHUD/**'
+      - 'builds/FS25_z_LivestockCapacityHUD.zip'
+      - 'tools/verify_livestock_capacity_hud.py'
+      - '.github/workflows/release-livestock-capacity-hud.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  validate-and-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Lua
+        run: sudo apt-get update -qq && sudo apt-get install -y lua5.1
+      - name: Validate source and package
+        run: |
+          python3 tools/verify_livestock_capacity_hud.py
+          for script in FS25_z_LivestockCapacityHUD/scripts/*.lua; do luac5.1 -p "$script"; done
+          sha256sum builds/FS25_z_LivestockCapacityHUD.zip > SHA256SUMS-livestock.txt
+      - name: Publish exact verified package
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag=livestock-capacity-hud-v1.0.0.6
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            gh release create "$tag" --target "$GITHUB_SHA" --title 'Livestock Capacity HUD 1.0.0.6' --notes-file FS25_z_LivestockCapacityHUD/README.md builds/FS25_z_LivestockCapacityHUD.zip SHA256SUMS-livestock.txt
+          fi

@@ -23,6 +23,10 @@ Each mod should have:
 - tagged GitHub release once debugged
 - packaged ZIP corresponding to the released source
 
-## Working principle
+## Find every mod from one place
+
+The root README is the mod catalog. Every mod must have a catalog entry linking directly to its playable release ZIP, release page, and authoritative source/status notes, including mods maintained in separate repositories. A completed release is not considered fully recorded until these links exist. Keep each mod's version, debug status, known issues, and next work item in its GitHub notes. Review this catalog and the mod's current GitHub state before resuming any work.
+
+## GitHub takes precedence
 
 If a chat and GitHub disagree, GitHub wins unless a deliberate change is being made and committed during the current work session.
