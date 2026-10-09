@@ -29,3 +29,5 @@ Development build 1.0.1.4: current vehicle status text green, other vehicle text
 Development build 1.0.1.5: opaque 1px card separators and white/yellow/blue/green course-visibility eye states. Logs native supplied message count versus visible card count to investigate missing forage wagon warning. Tests and TestRunner pass; runtime diagnosis pending.
 
 Development build 1.0.1.6 restores green active and white inactive play icons. Missing forage wagon blocked warning remains under investigation; message diagnostics require an in-game run.
+
+Development build 1.0.1.7 removes extra header-to-card padding, leaving the opaque 1px separator. User confirmed multiple blocked messages now appear. Lua checks pass.

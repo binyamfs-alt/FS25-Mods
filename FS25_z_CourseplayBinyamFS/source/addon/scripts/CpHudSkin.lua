@@ -762,7 +762,7 @@ function CpHudSkin.prepareInfoLayout(hud)
     local width=math.min(350*px,1-12*px)
     local left=math.max(6*px,math.min(root.overlay.x,1-width-6*px))
     local count=hud.activeTexts or 0
-    local panelHeight=headerHeight+(count>0 and 8*py+count*height+math.max(0,count-1)*py or 0)
+    local panelHeight=headerHeight+(count>0 and 5*py+count*height+math.max(0,count-1)*py or 0)
     root.skinPanelBounds={left,top,width,panelHeight}
     CpHudSkin.setRenderBounds(root,root.skinPanelBounds)
     for _,child in ipairs(root.children or {}) do
@@ -776,7 +776,7 @@ function CpHudSkin.prepareInfoLayout(hud)
         end
     end
     for i,line in ipairs(hud.infoTextsElements or {}) do
-        local y=top-headerHeight-4*py-i*height-(i-1)*py
+        local y=top-headerHeight-py-i*height-(i-1)*py
         line.vehicleBtn.skinLayoutBounds={left+inset,y,cell,height}
         line.vehicleBtn.skinInfoCardBounds={left+inset,y,width-2*inset,height}
         line.text.skinGridText=true
