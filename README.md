@@ -22,7 +22,7 @@ The companion is licensed under GPLv3. Its folder includes the full license, cre
 
 ## Other mods
 
-- [Harvest Ledger](https://github.com/binyamfs-alt/FS25-HarvestLedger)
+- **Harvest Ledger 1.2.0.9** — [Download ZIP](https://github.com/binyamfs-alt/FS25-HarvestLedger/releases/download/v1.2.0.9/FS25_z_HarvestLedger.zip) · [Release](https://github.com/binyamfs-alt/FS25-HarvestLedger/releases/tag/v1.2.0.9) · [Source and validation](https://github.com/binyamfs-alt/FS25-HarvestLedger/blob/v1.2.0.9/tests/validation-1.2.0.9.md). Harvest Ready page cycling confirmed in game; no Harvest Ledger log errors. Live multiplayer testing remains pending.
 - [Storage Alert Monitor](https://github.com/binyamfs-alt/FS25-StorageAlertMonitor)
 - [Contract Distance Sort](https://github.com/binyamfs-alt/FS25-ContractDistanceSorter)
 
