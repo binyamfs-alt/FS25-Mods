@@ -4,6 +4,7 @@
 
 | Utility | Version | Download |
 | --- | --- | --- |
+| AutoDrive Parking Node Rows | 1.0.0.6 | [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.6/FS25_z_ADParkingNodes.zip), [release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.6), [instructions and source](FS25_z_ADParkingNodes/README.md) |
 | Livestock Capacity HUD | 1.0.0.6 | [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/livestock-capacity-hud-v1.0.0.6/FS25_z_LivestockCapacityHUD.zip), [release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/livestock-capacity-hud-v1.0.0.6), [status and source](FS25_z_LivestockCapacityHUD/README.md) |
 | Clover and Alfalfa Precision Farming Tillage | 1.0.1.0 | [Latest utility release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/clover-pf-tillage-v1.0.1.0) |
 | Compact Controls | 1.0.0.1 | [Latest utility release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/compact-controls-v1.0.0.1) |
@@ -21,11 +22,6 @@ Install `FS25_z_CourseplayBinyamFS.zip` alongside [official Courseplay](https://
 The companion is licensed under GPLv3. Its folder includes the full license, credits, preferred source archive, checksums, and passing GIANTS TestRunner report. It is free to download and is not endorsed by Courseplay or GIANTS Software. Future companion updates are maintained here; the former private development repository is archived.
 
 ## Other mods
-
-Testing feature branch: [AutoDrive Parking Node Rows 1.0.0.6](FS25_z_ADParkingNodes/README.md),
-[staged ZIP](builds/FS25_z_ADParkingNodes.zip). Adjustable 1–10 m maximum node
-spacing; primary/secondary unconnected nodes. Lua checks passed; in-game UI
-validation pending. No release published.
 
 - [Harvest Ledger](https://github.com/binyamfs-alt/FS25-HarvestLedger)
 - [Storage Alert Monitor](https://github.com/binyamfs-alt/FS25-StorageAlertMonitor)

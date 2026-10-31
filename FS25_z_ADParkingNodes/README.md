@@ -1,41 +1,57 @@
 # AutoDrive Parking Node Rows
 
-Testing version **1.0.0.6**. Leaves FS25's protected class metatable intact.
-Corrects the base brush constructor and validates
-its callbacks before activating it. Failed activation returns to selection.
-Detects the loaded tool preview even when a cached
-construction callback bypasses catalog-selection hooks.
-Routes deferred catalog selection into the node tool,
-before a normal physical-placement preview can be loaded.
-Fixes 1.0.0.1's unknown-brush catalog rejection by
-using the registered placement type and an item-specific brush factory.
-Lua 5.1 geometry, input routing and AutoDrive API
-checks passed. Construction-menu behavior still needs in-game validation.
-No public release or merge authorized.
+**Version 1.0.0.6** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.6/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.6)
 
-Find **AutoDrive Parking Node Row** in **Construction > Decorations > Others**.
-Click once to anchor a row, stretch its preview, then click again to place.
-Right-click cancels an anchored row; right-click again exits. The construction
-tertiary action switches primary/secondary nodes. The construction primary-axis
-(brush size) controls adjust maximum spacing in 1 m steps from 1 to 10 m,
-default 5 m. Both endpoints are included, with equal spacing no larger than the
-selected maximum. Thus stretching beyond a spacing threshold adds another node.
-Rows are capped at 500 m. The preview displays length and node count.
+Create a straight row of AutoDrive parking nodes with two clicks. This is useful
+for lining up parking bays along farmyards, sheds and buildings.
 
-Nodes have **no incoming or outgoing connections**. The tool places no physical
-decoration, charges no money, and does not change landscaping. It calls
-AutoDrive's existing networked graph API so normal AutoDrive saving applies.
-Turn on AutoDrive's editor display to inspect finished nodes.
+## Install
 
-The original AutoDrive mod is a dependency and is not modified or redistributed.
-Integration reference: read-only installed AutoDrive 3.0.1.2 GraphManager and
-CreateWayPointEvent; GIANTS FS25 SDK construction categories and brush types;
-official ConstructionScreen action registration documentation.
+Put `FS25_z_ADParkingNodes.zip` in your active mods folder and enable it alongside
+**FS25_AutoDrive**. Do not unzip it. The original AutoDrive mod is unchanged.
 
-Known limits: construction UI wiring needs runtime validation. This build does
-not add destination names/markers or connect new nodes to existing routes.
+## Use
 
-The non-GUI GIANTS TestRunner checks Lua, descriptor, textures and I3D. Its
-physical-placeable check expects leveling/clearing areas and a placement sound;
-those are intentionally omitted because this is a graph tool and must not
-modify the ground. The zero price is intentional. GUI/engine checks were not run.
+1. Open **Construction > Decorations > Others > AutoDrive Parking Node Row**.
+2. Click to anchor the start, move the cursor to stretch the straight preview,
+   then click again to place the row.
+3. Use **B** to switch primary/secondary nodes and **N / M** to adjust maximum
+   spacing from **1-10 m**, default **5 m**. Bindings follow your Construction controls.
+4. Right-click to cancel an unfinished row; right-click again to leave the tool.
+
+The preview shows node count, length and type. Both endpoints are included;
+gaps are equal and never exceed the selected spacing. For example, a 35 m row
+at 5 m spacing creates eight nodes. Maximum row length is 500 m.
+
+Nodes have **no incoming or outgoing connections**. No physical decoration is
+placed, no landscaping is changed, and placement is free. Enable AutoDrive's
+editor display to inspect finished nodes. Save normally to retain them through
+AutoDrive's own configuration. Add destination names or route connections in
+AutoDrive afterward if needed.
+
+## Compatibility and validation
+
+User-tested on October 30, 2026 with AutoDrive **3.0.1.2**. Straight preview,
+primary/secondary selection, adjustable spacing and node creation were confirmed.
+The successful session logged no parking-tool Lua errors.
+
+Automated Lua 5.1 checks cover geometry, spacing thresholds, empty connections,
+AutoDrive network API arguments, selection paths, protected metatables,
+activation rollback, input controls and unrelated-brush passthrough. See
+[validation](VALIDATION.md) and [build status](status.json).
+
+Multiplayer uses AutoDrive's existing network events but has not been runtime-tested.
+Selecting the tool may log warnings about missing optional clearing, indoor,
+AI and leveling areas on its temporary catalog preview. Those areas are omitted
+because this tool must not alter the ground. No destination names or automatic
+route connections are created.
+
+## Source and license
+
+Original companion code and artwork: BinyamFS, [MIT license](LICENSE). AutoDrive
+is a separate dependency and is not modified or redistributed. This is an
+unofficial companion, not endorsed by AutoDrive or GIANTS Software.
+
+Run `python test_parking_rows.py` with `lupa==2.8` installed. Run `python build.py`
+to build, or `python build.py --check` to verify the committed release package.
+The GitHub Actions release workflow publishes the verified ZIP and checksum.
