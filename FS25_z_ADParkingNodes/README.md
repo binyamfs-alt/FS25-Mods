@@ -1,6 +1,6 @@
 # AutoDrive Parking Node Rows
 
-**Version 1.0.0.7** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.7/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.7)
+**Version 1.0.0.8** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.8/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.8)
 
 Create a straight row of AutoDrive parking nodes with two clicks. This is useful
 for lining up parking bays along farmyards, sheds and buildings.
