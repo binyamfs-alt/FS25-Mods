@@ -36,5 +36,5 @@ Version 1.0.0.6 is the first user-confirmed working build. Its installed runtime
 Lua is unchanged for publication; release preparation updates documentation,
 licensing and reproducible packaging only.
 
-## 1.0.0.7 testing
-Terrain-only targeting and on-top preview regression checks pass in Lua 5.1. Painted guides and shed placement require in-game confirmation.
+## 1.0.0.7
+Terrain-only targeting and on-top preview regression checks pass in Lua 5.1. User verified painted guides and shed placement in game on 2026-10-30 with AutoDrive 3.0.1.2.
