@@ -218,3 +218,19 @@ ConstructionScreen.onButtonSnapping(screen);assert(not brush.curveFlipped)
 assert(ConstructionScreen.onButtonSnapping({brush={}})=='originalSnap')
 ''')
 print('PASS: flip reflects every arc without reversing endpoints, spacing or travel mode; live preview and control passthrough.')
+
+lua.execute('''
+local brush=ADParkingBrush.new({},{});brush.anchor={x=1,z=2}
+local screen={brush=brush,fourthBrushEvent=42}
+local labels={}
+g_inputBinding={setActionEventText=function(self,event,text)
+ assert(event==42);labels[#labels+1]=text
+end}
+ConstructionScreen.onButtonFourth(screen)
+ConstructionScreen.onButtonFourth(screen)
+ConstructionScreen.onButtonFourth(screen)
+assert(labels[1]=='Connection: One-way' and labels[2]=='Connection: Bidirectional' and labels[3]=='Connection: Unconnected')
+assert(brush.anchor.x==1 and brush.anchor.z==2)
+g_inputBinding=nil
+''')
+print('PASS: F1 connection label refreshes through all three modes without clearing the current path.')

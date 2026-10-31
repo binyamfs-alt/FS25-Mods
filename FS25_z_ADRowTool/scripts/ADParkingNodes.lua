@@ -111,6 +111,11 @@ function M.install()
     route("onButtonTertiary", function(screen, brush) brush.secondary = not brush.secondary end)
     route("onButtonFourth", function(screen, brush)
         brush.connectionMode = (brush.connectionMode + 1) % 3
+        -- Construction caches help text when registering the brush. Refresh
+        -- its existing event instead of rebuilding controls or losing the row.
+        if screen.fourthBrushEvent ~= nil and g_inputBinding ~= nil then
+            g_inputBinding:setActionEventText(screen.fourthBrushEvent, brush:getButtonFourthText())
+        end
     end)
     route("onButtonSnapping", function(screen, brush)
         brush.curveFlipped = not brush.curveFlipped
