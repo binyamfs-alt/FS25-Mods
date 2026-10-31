@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modDesc descVersion="113">
+ <author>BinyamFS</author><version>1.0.0.6</version>
+ <title><en>AutoDrive Parking Node Rows</en></title>
+ <description><en><![CDATA[Place straight rows of unconnected AutoDrive parking nodes from Construction, Decorations, Others. Primary or secondary nodes; adjustable maximum spacing from 1 to 10 metres.
+Changelog 1.0.0.6: Respect the protected class metatable set by the base constructor.
+Changelog 1.0.0.5: Correct brush constructor and validate callbacks before activation.
+Changelog 1.0.0.4: Activate from the loaded preview when selection callbacks are cached.
+Changelog 1.0.0.3: Activate the node tool when the catalog assigns its selected item.
+Changelog 1.0.0.2: Correct construction catalog registration.
+Changelog 1.0.0.1: Initial testing build.]]></en><de><![CDATA[Gerade Reihen unverbundener AutoDrive-Parkknoten im Baumenü unter Dekorationen, Sonstiges setzen. Primäre oder sekundäre Knoten; maximaler Abstand von 1 bis 10 Metern einstellbar.
+Changelog 1.0.0.6: Geschützte Klassen-Metatabelle des Basiskonstruktors beibehalten.
+Changelog 1.0.0.5: Konstruktor und Prüfung vor der Aktivierung korrigiert.
+Changelog 1.0.0.4: Aktivierung über die geladene Vorschau ergänzt.
+Changelog 1.0.0.3: Aktivierung bei Auswahl des Katalogeintrags korrigiert.
+Changelog 1.0.0.2: Registrierung im Baumenü korrigiert.
+Changelog 1.0.0.1: Erste Testversion.]]></de></description>
+ <iconFilename>icon_ADParkingNodes.dds</iconFilename>
+ <multiplayer supported="true"/>
+ <dependencies><dependency>FS25_AutoDrive</dependency></dependencies>
+ <extraSourceFiles>
+  <sourceFile filename="scripts/RowPlanner.lua"/>
+  <sourceFile filename="scripts/ParkingBrush.lua"/>
+  <sourceFile filename="scripts/ADParkingNodes.lua"/>
+ </extraSourceFiles>
+ <storeItems><storeItem xmlFilename="parkingNodes.xml"/></storeItems>
+</modDesc>

@@ -4,6 +4,7 @@
 
 | Utility | Version | Download |
 | --- | --- | --- |
+| AutoDrive Parking Node Rows | 1.0.0.6 | [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.6/FS25_z_ADParkingNodes.zip), [release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.6), [instructions and source](FS25_z_ADParkingNodes/README.md) |
 | Livestock Capacity HUD | 1.0.0.6 | [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/livestock-capacity-hud-v1.0.0.6/FS25_z_LivestockCapacityHUD.zip), [release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/livestock-capacity-hud-v1.0.0.6), [status and source](FS25_z_LivestockCapacityHUD/README.md) |
 | Clover and Alfalfa Precision Farming Tillage | 1.0.1.0 | [Latest utility release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/clover-pf-tillage-v1.0.1.0) |
 | Compact Controls | 1.0.0.1 | [Latest utility release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/compact-controls-v1.0.0.1) |

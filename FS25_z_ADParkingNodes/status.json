@@ -1,0 +1,9 @@
+{
+  "version": "1.0.0.6",
+  "runtime_verified": true,
+  "runtime_verified_date": "2026-10-30",
+  "tested_autodrive_version": "3.0.1.2",
+  "verified": ["Construction menu activation", "Straight preview", "Primary node creation", "Primary/secondary selection", "Adjustable maximum spacing"],
+  "known_limits": ["Multiplayer not runtime-tested", "Optional-area warnings from the temporary catalog preview", "No destination naming or automatic route connections"],
+  "next_work": "Monitor public feedback; retain native AutoDrive save and network APIs"
+}
