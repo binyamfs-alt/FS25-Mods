@@ -1,0 +1,9 @@
+{
+  "archive": "FS25_z_ADParkingNodes.zip",
+  "version": "1.0.0.1",
+  "sha256": "669feeacd8f235f0194b4eaaf04dc07c87c356da909e1bd1a736c9030784afe4",
+  "lua51_checks": "passed",
+  "runtime_verified": false,
+  "released": false,
+  "testrunner_non_gui": "Lua, descriptor, I3D, texture and mipmap checks pass; remaining findings are opaque BC7 store-icon alpha and intentionally absent physical-placeable areas/sounds, zero price. GUI checks skipped."
+}

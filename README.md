@@ -22,6 +22,11 @@ The companion is licensed under GPLv3. Its folder includes the full license, cre
 
 ## Other mods
 
+Testing feature branch: [AutoDrive Parking Node Rows 1.0.0.1](FS25_z_ADParkingNodes/README.md),
+[staged ZIP](builds/FS25_z_ADParkingNodes.zip). Adjustable 1–10 m maximum node
+spacing; primary/secondary unconnected nodes. Lua checks passed; in-game UI
+validation pending. No release published.
+
 - [Harvest Ledger](https://github.com/binyamfs-alt/FS25-HarvestLedger)
 - [Storage Alert Monitor](https://github.com/binyamfs-alt/FS25-StorageAlertMonitor)
 - [Contract Distance Sort](https://github.com/binyamfs-alt/FS25-ContractDistanceSorter)

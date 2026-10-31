@@ -66,8 +66,13 @@ end
 
 function ADParkingBrush:draw()
     local color = self.secondary and {1, 0.65, 0.1} or {0.1, 1, 0.25}
+    local previous
     for _, p in ipairs(self.preview or {}) do
         local y = getTerrainHeightAtWorldPos(g_terrainNode, p.x, 0, p.z) + 0.15
+        if previous ~= nil then
+            drawDebugLine(previous.x, previous.y, previous.z, 0.7, 0.7, 0.7, p.x, y, p.z, 0.7, 0.7, 0.7)
+        end
+        previous = {x = p.x, y = y, z = p.z}
         drawDebugLine(p.x - 0.25, y, p.z, color[1], color[2], color[3], p.x + 0.25, y, p.z, color[1], color[2], color[3])
         drawDebugLine(p.x, y, p.z - 0.25, color[1], color[2], color[3], p.x, y, p.z + 0.25, color[1], color[2], color[3])
         drawDebugLine(p.x, y, p.z, color[1], color[2], color[3], p.x, y + 0.5, p.z, color[1], color[2], color[3])

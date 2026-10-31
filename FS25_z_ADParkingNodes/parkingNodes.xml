@@ -3,12 +3,10 @@
  <storeData>
   <name>AutoDrive Parking Node Row</name>
   <functions><function>Create unconnected parking nodes along a straight row.</function></functions>
-  <image>icon.dds</image><price>0</price><dailyUpkeep>0</dailyUpkeep><lifetime>1000</lifetime>
+  <image>store_parkingNodes.dds</image><price>0</price><dailyUpkeep>0</dailyUpkeep><lifetime>1000</lifetime>
   <brand>NONE</brand><species>PLACEABLE</species><category>decoration</category>
   <showInStore>true</showInStore>
   <brush><type>adParkingNodes</type><category>decoration</category><tab>uncategorized</tab></brush>
-  <vertexBufferMemoryUsage>0</vertexBufferMemoryUsage><indexBufferMemoryUsage>0</indexBufferMemoryUsage>
-  <textureMemoryUsage>65536</textureMemoryUsage><audioMemoryUsage>0</audioMemoryUsage>
  </storeData>
  <base><filename>parkingNodes.i3d</filename></base>
 </placeable>

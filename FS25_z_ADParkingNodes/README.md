@@ -1,7 +1,8 @@
 # AutoDrive Parking Node Rows
 
-Testing version **1.0.0.1**. Initial construction-tool implementation; engine
-and in-game validation pending. No public release or merge authorized.
+Testing version **1.0.0.1**. Lua 5.1 geometry, input routing and AutoDrive API
+checks passed. Construction-menu behavior still needs in-game validation.
+No public release or merge authorized.
 
 Find **AutoDrive Parking Node Row** in **Construction > Decorations > Others**.
 Click once to anchor a row, stretch its preview, then click again to place.
@@ -24,3 +25,8 @@ official ConstructionScreen action registration documentation.
 
 Known limits: construction UI wiring needs runtime validation. This build does
 not add destination names/markers or connect new nodes to existing routes.
+
+The non-GUI GIANTS TestRunner checks Lua, descriptor, textures and I3D. Its
+physical-placeable check expects leveling/clearing areas and a placement sound;
+those are intentionally omitted because this is a graph tool and must not
+modify the ground. The zero price is intentional. GUI/engine checks were not run.

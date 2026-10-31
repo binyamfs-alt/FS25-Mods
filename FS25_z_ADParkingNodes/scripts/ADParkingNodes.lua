@@ -7,6 +7,12 @@ function M.install()
     if manager == nil or ConstructionScreen == nil or ConstructionBrush == nil then return false end
     local resolver = manager.getClassObjectByTypeName
     if type(resolver) ~= "function" then return false end
+    for _, name in ipairs({"onButtonPrimary", "onButtonSecondary", "onButtonTertiary", "onAxisPrimary"}) do
+        if type(ConstructionScreen[name]) ~= "function" then
+            Logging.warning("[ADParkingNodes] Required construction control unavailable: %s", name)
+            return false
+        end
+    end
     manager.getClassObjectByTypeName = function(self, name, ...)
         if name == "adParkingNodes" or name == "FS25_z_ADParkingNodes.adParkingNodes" then return ADParkingBrush end
         return resolver(self, name, ...)
