@@ -1,12 +1,19 @@
 ADParkingNodes = {}
 local M = ADParkingNodes
 
+function M.isOurItem(storeItem)
+    local filename = type(storeItem) == "table" and storeItem.xmlFilename or storeItem
+    if type(filename) ~= "string" then return false end
+    filename = filename:gsub("\\", "/"):lower()
+    return ("/" .. filename):match("/fs25_z_adparkingnodes/parkingnodes%.xml$") ~= nil
+end
+
 function M.install()
     if M.installed then return true end
     if ConstructionBrushPlaceable == nil or ConstructionScreen == nil or ConstructionBrush == nil then return false end
     local factory = ConstructionBrushPlaceable.new
     if type(factory) ~= "function" then return false end
-    for _, name in ipairs({"onButtonPrimary", "onButtonSecondary", "onButtonTertiary", "onAxisPrimary"}) do
+    for _, name in ipairs({"onButtonPrimary", "onButtonSecondary", "onButtonTertiary", "onAxisPrimary", "loadCurrentConfiguration"}) do
         if type(ConstructionScreen[name]) ~= "function" then
             Logging.warning("[ADParkingNodes] Required construction control unavailable: %s", name)
             return false
@@ -15,14 +22,25 @@ function M.install()
     -- The catalog validates brush types before asking for their class object.
     -- Use the registered placeable type, then select our brush only for our item.
     ConstructionBrushPlaceable.new = function(storeItem, cursor, ...)
-        local filename = type(storeItem) == "table" and storeItem.xmlFilename or storeItem
-        if type(filename) == "string" then
-            filename = filename:gsub("\\", "/"):lower()
-            if filename:match("/fs25_z_adparkingnodes/parkingnodes%.xml$") ~= nil then
-                return ADParkingBrush.new(storeItem, cursor)
-            end
+        if M.isOurItem(storeItem) then
+            return ADParkingBrush.new(storeItem, cursor)
         end
         return factory(storeItem, cursor, ...)
+    end
+    -- The standard screen often creates a reusable brush with a nil storeItem,
+    -- then supplies the selected catalog entry here. Intercept before it loads
+    -- the empty physical placeholder or registers purchase callbacks.
+    local loadConfiguration = ConstructionScreen.loadCurrentConfiguration
+    ConstructionScreen.loadCurrentConfiguration = function(screen, storeItem, ...)
+        if M.isOurItem(storeItem) then
+            if screen.brush == nil or not screen.brush.isADParkingBrush then
+                local brush = ADParkingBrush.new(storeItem, screen.cursor)
+                screen:setBrush(brush, true)
+                Logging.info("[ADParkingNodes] Parking row brush activated from catalog selection.")
+            end
+            return
+        end
+        return loadConfiguration(screen, storeItem, ...)
     end
     local function route(name, callback)
         local previous = ConstructionScreen[name]

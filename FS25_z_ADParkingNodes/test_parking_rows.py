@@ -44,7 +44,8 @@ Logging={info=function()end,warning=function()end}
 addModEventListener=function()end
 ConstructionBrushPlaceable={new=function(item,cursor,...)return 'originalFactory',nil,select('#',...)end}
 ConstructionScreen={onButtonPrimary=function()return 'original' end,onButtonSecondary=function()end,
- onButtonTertiary=function()end,onAxisPrimary=function()end}
+ onButtonTertiary=function()end,onAxisPrimary=function()end,
+ loadCurrentConfiguration=function(self,item) self.defaultPreviewLoaded=true;return 'standardPreview',nil,3 end}
 getTerrainHeightAtWorldPos=function(_,x,_,z)return x+z end
 g_terrainNode=1
 local calls={}
@@ -76,6 +77,15 @@ local custom=ConstructionBrushPlaceable.new(item,cursor)
 assert(custom.isADParkingBrush and custom.storeItem==item)
 local a,b,c=ConstructionBrushPlaceable.new({xmlFilename='C:/mods/other/parkingNodes.xml'},cursor,1,nil,3)
 assert(a=='originalFactory' and b==nil and c==3)
+-- Actual screen lifecycle: reusable brush constructed with no selected item.
+assert(ConstructionBrushPlaceable.new(nil,cursor)=='originalFactory')
+local deferred={cursor=cursor,brush={},setBrush=function(self,brush)self.brush=brush end}
+ConstructionScreen.loadCurrentConfiguration(deferred,item)
+assert(deferred.brush.isADParkingBrush and not deferred.defaultPreviewLoaded)
+local active=deferred.brush
+ConstructionScreen.loadCurrentConfiguration(deferred,item);assert(deferred.brush==active)
+a,b,c=ConstructionScreen.loadCurrentConfiguration(deferred,{xmlFilename='C:/other/tool.xml'})
+assert(a=='standardPreview' and b==nil and c==3)
 ''')
 import xml.etree.ElementTree as E
 assert E.parse(root/'parkingNodes.xml').findtext('storeData/brush/type') == 'placeable'

@@ -1,6 +1,8 @@
 # AutoDrive Parking Node Rows
 
-Testing version **1.0.0.2**. Fixes 1.0.0.1's unknown-brush catalog rejection by
+Testing version **1.0.0.3**. Routes deferred catalog selection into the node tool,
+before a normal physical-placement preview can be loaded.
+Fixes 1.0.0.1's unknown-brush catalog rejection by
 using the registered placement type and an item-specific brush factory.
 Lua 5.1 geometry, input routing and AutoDrive API
 checks passed. Construction-menu behavior still needs in-game validation.

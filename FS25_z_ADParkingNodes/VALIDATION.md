@@ -1,4 +1,4 @@
-# Validation, 1.0.0.2
+# Validation, 1.0.0.3
 
 Lua 5.1 tests pass for spacing 1-10 m, both endpoints, diagonal rows, threshold
 node counts, independent empty connection arrays, native AD event arguments,
@@ -13,3 +13,5 @@ I3D, texture, mipmap and packaged-file checks pass. Overall result remains FAIL:
 No editor/engine/UI test was run; Construction-menu runtime validation is pending.
 
 Runtime 1.0.0.1 rejected the unregistered adParkingNodes brush before catalog insertion. Version 1.0.0.2 uses the registered placeable type and routes only this mod's XML through its custom brush. A regression check verifies the XML type and preserves unrelated factory calls and nil return values. Runtime retest pending.
+
+Runtime 1.0.0.2 entered a normal physical-placement preview because the screen constructs the reusable brush with no store item. Version 1.0.0.3 intercepts loadCurrentConfiguration before physical preview loading. Regression tests cover deferred selection, repeat selection and unrelated preview forwarding. No saved placeholders were found in the active standard savegame2. Runtime retest pending.
