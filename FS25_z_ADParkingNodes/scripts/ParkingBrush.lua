@@ -35,8 +35,8 @@ function ADParkingBrush:deactivate(...)
     if ConstructionBrush.deactivate ~= nil then ConstructionBrush.deactivate(self, ...) end
 end
 
-function ADParkingBrush:getButtonPrimaryText() return self.anchor and "Place parking nodes" or "Set row start" end
-function ADParkingBrush:getButtonSecondaryText() return self.anchor and "Cancel row" or "Exit parking tool" end
+function ADParkingBrush:getButtonPrimaryText() return self.anchor and "Place nodes" or "Set path start" end
+function ADParkingBrush:getButtonSecondaryText() return self.anchor and "Cancel row" or "Exit AD Row Tool" end
 function ADParkingBrush:getButtonTertiaryText() return "Toggle primary / secondary nodes" end
 function ADParkingBrush:getButtonFourthText() return "Connection: " .. self:getConnectionName() end
 function ADParkingBrush:getConnectionName()
@@ -105,7 +105,7 @@ function ADParkingBrush:draw()
         drawDebugLine(p.x, y, p.z - 0.25, color[1], color[2], color[3], p.x, y, p.z + 0.25, color[1], color[2], color[3], false)
         drawDebugLine(p.x, y, p.z, color[1], color[2], color[3], p.x, y + 0.5, p.z, color[1], color[2], color[3], false)
     end
-    local text = string.format("Parking nodes: %s | %s | curve %d deg | max gap %d m | %.1f m | %d nodes",
+    local text = string.format("AD Row Tool: %s | %s | curve %d deg | max gap %d m | %.1f m | %d nodes",
         self.secondary and "Secondary" or "Primary", self:getConnectionName(), self.curveDegrees, self.spacing, self.length or 0, #(self.preview or {}))
     setTextColor(1, 1, 1, 1)
     renderText(0.36, 0.12, 0.017, text)

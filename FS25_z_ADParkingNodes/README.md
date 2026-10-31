@@ -1,8 +1,8 @@
-# AutoDrive Parking Node Rows
+# AD Row Tool
 
-**Version 1.0.0.10** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.10/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.10)
+**Version 1.0.0.11** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.11/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.11)
 
-Create a straight row of AutoDrive parking nodes with two clicks. This is useful
+Create straight or curved rows of AutoDrive nodes with two clicks. This is useful
 for lining up parking bays along farmyards, sheds and buildings.
 
 ## Install
@@ -13,7 +13,7 @@ Put `FS25_z_ADParkingNodes.zip` in your active mods folder and enable it alongsi
 ## Use
 
 1. Enter a vehicle and enable AutoDrive's **editor mode** to see AutoDrive nodes. This is required by AutoDrive for node visibility.
-2. Open **Construction > Decorations > Others > AutoDrive Parking Node Row**.
+2. Open **Construction > Decorations > Others > AD Row Tool**.
 3. Click to anchor the start, move the cursor to stretch the straight preview,
    then click again to place the row.
 4. Use **B** to switch primary/secondary nodes and **N / M** to adjust maximum

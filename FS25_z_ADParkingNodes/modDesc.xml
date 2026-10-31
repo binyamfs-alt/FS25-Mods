@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modDesc descVersion="113">
- <author>BinyamFS</author><version>1.0.0.10</version>
- <title><en>AutoDrive Parking Node Rows</en></title>
+ <author>BinyamFS</author><version>1.0.0.11</version>
+ <title><en>AD Row Tool</en></title>
  <description><en><![CDATA[Place straight rows of AutoDrive parking nodes from Construction, Decorations, Others. Primary or secondary nodes; adjustable maximum spacing from 1 to 10 metres.
 To see the placed nodes, you must be in a vehicle with AutoDrive's editor mode enabled. This is AutoDrive's requirement for node visibility.
-Changelog 1.0.0.10: Keep row targeting and preview visible across placeables and inside buildings.
+Changelog 1.0.0.11: Keep row targeting and preview visible across placeables and inside buildings.
 Changelog 1.0.0.6: Respect the protected class metatable set by the base constructor.
 Changelog 1.0.0.5: Correct brush constructor and validate callbacks before activation.
 Changelog 1.0.0.4: Activate from the loaded preview when selection callbacks are cached.
@@ -12,7 +12,7 @@ Changelog 1.0.0.3: Activate the node tool when the catalog assigns its selected 
 Changelog 1.0.0.2: Correct construction catalog registration.
 Changelog 1.0.0.1: Initial testing build.]]></en><de><![CDATA[Gerade Reihen von AutoDrive-Parkknoten im Baumenü unter Dekorationen, Sonstiges setzen. Primäre oder sekundäre Knoten; maximaler Abstand von 1 bis 10 Metern einstellbar.
 Um die gesetzten Knoten zu sehen, müssen Sie sich in einem Fahrzeug befinden und den Editormodus von AutoDrive aktivieren. Dies ist eine Voraussetzung von AutoDrive für die Knotensichtbarkeit.
-Changelog 1.0.0.10: Zielerfassung und Vorschau über platzierbaren Objekten und in Gebäuden beibehalten.
+Changelog 1.0.0.11: Zielerfassung und Vorschau über platzierbaren Objekten und in Gebäuden beibehalten.
 Changelog 1.0.0.6: Geschützte Klassen-Metatabelle des Basiskonstruktors beibehalten.
 Changelog 1.0.0.5: Konstruktor und Prüfung vor der Aktivierung korrigiert.
 Changelog 1.0.0.4: Aktivierung über die geladene Vorschau ergänzt.

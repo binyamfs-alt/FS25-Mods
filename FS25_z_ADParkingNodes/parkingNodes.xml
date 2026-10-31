@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <placeable type="simplePlaceable">
  <storeData>
-  <name>AutoDrive Parking Node Row</name>
+  <name>AD Row Tool</name>
   <functions><function>Create unconnected parking nodes along a straight row.</function></functions>
   <image>store_parkingNodes.dds</image><price>0</price><dailyUpkeep>0</dailyUpkeep><lifetime>1000</lifetime>
   <brand>NONE</brand><species>PLACEABLE</species><category>decoration</category>
