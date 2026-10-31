@@ -74,7 +74,7 @@ ConstructionScreen.onButtonSecondary(s);assert(b.anchor==nil)
 ConstructionScreen.onButtonSecondary(s);assert(s.brush==s.selectorBrush)
 assert(ConstructionScreen.onButtonPrimary(s)=='original')
 local fn=ConstructionScreen.onButtonPrimary;ADParkingNodes.install();assert(fn==ConstructionScreen.onButtonPrimary)
-local item={xmlFilename='C:/mods/FS25_z_ADParkingNodes/parkingNodes.xml'}
+local item={xmlFilename='C:/mods/FS25_z_ADRowTool/parkingNodes.xml'}
 local custom=ConstructionBrushPlaceable.new(item,cursor)
 assert(custom.isADParkingBrush and custom.storeItem==item)
 local a,b,c=ConstructionBrushPlaceable.new({xmlFilename='C:/mods/other/parkingNodes.xml'},cursor,1,nil,3)

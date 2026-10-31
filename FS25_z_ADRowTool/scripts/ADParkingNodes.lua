@@ -33,7 +33,7 @@ function M.isOurItem(storeItem)
     end
     if type(filename) ~= "string" then return false end
     filename = filename:gsub("\\", "/"):lower()
-    return ("/" .. filename):match("/fs25_z_adparkingnodes/parkingnodes%.xml$") ~= nil
+    return ("/" .. filename):match("/fs25_z_adrowtool/parkingnodes%.xml$") ~= nil
 end
 
 function M.activateFromPreview(screen)
