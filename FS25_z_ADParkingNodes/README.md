@@ -1,6 +1,8 @@
 # AutoDrive Parking Node Rows
 
-Testing version **1.0.0.3**. Routes deferred catalog selection into the node tool,
+Testing version **1.0.0.4**. Detects the loaded tool preview even when a cached
+construction callback bypasses catalog-selection hooks.
+Routes deferred catalog selection into the node tool,
 before a normal physical-placement preview can be loaded.
 Fixes 1.0.0.1's unknown-brush catalog rejection by
 using the registered placement type and an item-specific brush factory.

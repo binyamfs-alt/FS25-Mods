@@ -45,6 +45,7 @@ addModEventListener=function()end
 ConstructionBrushPlaceable={new=function(item,cursor,...)return 'originalFactory',nil,select('#',...)end}
 ConstructionScreen={onButtonPrimary=function()return 'original' end,onButtonSecondary=function()end,
  onButtonTertiary=function()end,onAxisPrimary=function()end,
+ draw=function(self)self.wasDrawn=true;return 4,nil,6 end,
  loadCurrentConfiguration=function(self,item) self.defaultPreviewLoaded=true;return 'standardPreview',nil,3 end}
 getTerrainHeightAtWorldPos=function(_,x,_,z)return x+z end
 g_terrainNode=1
@@ -86,6 +87,14 @@ local active=deferred.brush
 ConstructionScreen.loadCurrentConfiguration(deferred,item);assert(deferred.brush==active)
 a,b,c=ConstructionScreen.loadCurrentConfiguration(deferred,{xmlFilename='C:/other/tool.xml'})
 assert(a=='standardPreview' and b==nil and c==3)
+-- Cached screen callback bypasses configuration/factory hooks: recover from
+-- actual Placeable.configFileName, not guessed catalog arguments.
+g_storeManager={getItemByXMLFilename=function(self,name)assert(name==item.xmlFilename);return item end}
+local cached={cursor=cursor,brush={placeable={configFileName=item.xmlFilename}},setBrush=deferred.setBrush}
+a,b,c=ConstructionScreen.draw(cached)
+assert(cached.brush.isADParkingBrush and cached.wasDrawn and a==4 and b==nil and c==6)
+local unrelated={cursor=cursor,brush={placeable={configFileName='C:/mods/other/shed.xml'}},setBrush=deferred.setBrush}
+local originalBrush=unrelated.brush;ConstructionScreen.draw(unrelated);assert(unrelated.brush==originalBrush)
 ''')
 import xml.etree.ElementTree as E
 assert E.parse(root/'parkingNodes.xml').findtext('storeData/brush/type') == 'placeable'

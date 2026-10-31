@@ -2,10 +2,29 @@ ADParkingNodes = {}
 local M = ADParkingNodes
 
 function M.isOurItem(storeItem)
-    local filename = type(storeItem) == "table" and storeItem.xmlFilename or storeItem
+    local filename = storeItem
+    if type(storeItem) == "table" then
+        filename = storeItem.xmlFilename or storeItem.configFileName or storeItem.filename
+        if filename == nil and storeItem.storeItem ~= nil then return M.isOurItem(storeItem.storeItem) end
+    end
     if type(filename) ~= "string" then return false end
     filename = filename:gsub("\\", "/"):lower()
     return ("/" .. filename):match("/fs25_z_adparkingnodes/parkingnodes%.xml$") ~= nil
+end
+
+function M.activateFromPreview(screen)
+    local current = screen.brush
+    if current == nil or current.isADParkingBrush then return end
+    local item = current.storeItem
+    local placeholder = current.placeable
+    if not M.isOurItem(item) and not M.isOurItem(placeholder) then return end
+    if not M.isOurItem(item) or type(item) ~= "table" or item.xmlFilename == nil then
+        local filename = placeholder ~= nil and placeholder.configFileName or nil
+        if filename ~= nil and g_storeManager ~= nil then item = g_storeManager:getItemByXMLFilename(filename) end
+    end
+    local brush = ADParkingBrush.new(item, screen.cursor)
+    screen:setBrush(brush, true)
+    Logging.info("[ADParkingNodes] ACTIVE: parking row brush replaced its loaded catalog preview.")
 end
 
 function M.install()
@@ -41,6 +60,16 @@ function M.install()
             return
         end
         return loadConfiguration(screen, storeItem, ...)
+    end
+    -- The screen may use a cached selection callback and an existing placeable
+    -- brush. Its draw path exposes the fully loaded placeable's configFileName.
+    -- Inspect only; replace exclusively our own tool before any purchase input.
+    if type(ConstructionScreen.draw) == "function" then
+        local draw = ConstructionScreen.draw
+        ConstructionScreen.draw = function(screen, ...)
+            M.activateFromPreview(screen)
+            return draw(screen, ...)
+        end
     end
     local function route(name, callback)
         local previous = ConstructionScreen[name]
