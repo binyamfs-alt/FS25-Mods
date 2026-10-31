@@ -1,6 +1,6 @@
 # AutoDrive Parking Node Rows
 
-**Version 1.0.0.6** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.6/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.6)
+**Version 1.0.0.7** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.7/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.7)
 
 Create a straight row of AutoDrive parking nodes with two clicks. This is useful
 for lining up parking bays along farmyards, sheds and buildings.
@@ -55,3 +55,5 @@ unofficial companion, not endorsed by AutoDrive or GIANTS Software.
 Run `python test_parking_rows.py` with `lupa==2.8` installed. Run `python build.py`
 to build, or `python build.py --check` to verify the committed release package.
 The GitHub Actions release workflow publishes the verified ZIP and checksum.
+
+The tool keeps its target on terrain through placeables and renders the preview over surfaces, allowing alignment with painted guides and placement inside sheds. Verified in game with AutoDrive 3.0.1.2.
