@@ -110,3 +110,28 @@ ADParkingBrush.new=newBrush
 import xml.etree.ElementTree as E
 assert E.parse(root/'parkingNodes.xml').findtext('storeData/brush/type') == 'placeable'
 print('PASS: Lua 5.1 spacing 1-10 m, endpoints, diagonal geometry, node-count thresholds, empty connections, AD network API, preflight, preview, confirm/cancel, type switch, controls, unrelated brushes and idempotence.')
+
+# Placeables must not hide or intercept the terrain target, including a roof.
+lua.execute('''
+CollisionFlag={TERRAIN=32}
+GuiTopDownCursor={RAYCAST_DISTANCE=1000}
+local ray={x=1,y=100,z=2,dx=0,dy=-1,dz=0}
+local castCount=0
+RaycastUtil={raycastClosest=function(x,y,z,dx,dy,dz,distance,mask)
+ assert(x==1 and y==100 and z==2 and dy==-1 and distance==1000 and mask==32)
+ castCount=castCount+1
+ return 1,20,0,30
+end}
+local brush=ADParkingBrush.new({}, {ray=ray,getHitTerrainPosition=function()error('placeable cursor must be bypassed')end})
+brush.anchor={x=0,z=0};brush:update(16)
+assert(castCount==1 and brush.target.x==20 and brush.target.z==30 and #brush.preview>1)
+local lines=0
+drawDebugLine=function(...)
+ assert(select('#',...)==13 and select(13,...)==false, 'preview must render above placeables')
+ lines=lines+1
+end
+brush:draw();assert(lines>0)
+RaycastUtil.raycastClosest=function()return 0 end
+brush:update(16);assert(brush.target==nil and brush.preview==nil)
+''')
+print('PASS: terrain-only cursor bypasses placeables; preview lines render on top; no-hit clears target.')

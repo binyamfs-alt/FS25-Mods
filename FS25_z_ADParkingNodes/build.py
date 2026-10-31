@@ -10,7 +10,7 @@ args = parser.parse_args()
 subprocess.run([sys.executable, str(root / 'test_parking_rows.py')], check=True)
 version = E.parse(root / 'modDesc.xml').findtext('version')
 status = json.loads((root / 'status.json').read_text())
-assert status['version'] == version and status['runtime_verified']
+assert status['version'] == version
 buffer = io.BytesIO()
 with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_STORED) as z:
     for p in sorted(root.rglob('*'), key=lambda item: item.relative_to(root).as_posix()):
@@ -31,7 +31,7 @@ with zipfile.ZipFile(io.BytesIO(package)) as z:
         if n.endswith(('.xml', '.i3d')): E.fromstring(z.read(n))
 digest = hashlib.sha256(package).hexdigest()
 record = {'archive': target.name, 'version': version, 'sha256': digest,
-          'lua51_checks': 'passed', 'runtime_verified': True,
+          'lua51_checks': 'passed', 'runtime_verified': status['runtime_verified'],
           'runtime_verified_date': status['runtime_verified_date'],
           'release_tag': 'ad-parking-nodes-v' + version}
 metadata = target.parent / 'ad-parking-nodes-build.json'

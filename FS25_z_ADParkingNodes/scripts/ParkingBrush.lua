@@ -37,7 +37,18 @@ function ADParkingBrush:getAxisPrimaryText() return "Node spacing (1-10 m)" end
 
 function ADParkingBrush:update(dt)
     if ConstructionBrush.update ~= nil then ConstructionBrush.update(self, dt) end
-    local x, y, z = self.cursor:getHitTerrainPosition()
+    -- Cast against terrain only: painted guides, floors and roofs must not
+    -- invalidate the target or pull parking nodes up onto a building.
+    local x, y, z
+    local ray = self.cursor.ray
+    if ray ~= nil then
+        local id
+        id, x, y, z = RaycastUtil.raycastClosest(ray.x, ray.y, ray.z,
+            ray.dx, ray.dy, ray.dz, GuiTopDownCursor.RAYCAST_DISTANCE, CollisionFlag.TERRAIN)
+        if id == nil or id == 0 then x, y, z = nil, nil, nil end
+    else
+        x, y, z = self.cursor:getHitTerrainPosition()
+    end
     self.target = x ~= nil and z ~= nil and {x = x, z = z} or nil
     self.preview = nil
     if self.target ~= nil then
@@ -73,12 +84,12 @@ function ADParkingBrush:draw()
     for _, p in ipairs(self.preview or {}) do
         local y = getTerrainHeightAtWorldPos(g_terrainNode, p.x, 0, p.z) + 0.15
         if previous ~= nil then
-            drawDebugLine(previous.x, previous.y, previous.z, 0.7, 0.7, 0.7, p.x, y, p.z, 0.7, 0.7, 0.7)
+            drawDebugLine(previous.x, previous.y, previous.z, 0.7, 0.7, 0.7, p.x, y, p.z, 0.7, 0.7, 0.7, false)
         end
         previous = {x = p.x, y = y, z = p.z}
-        drawDebugLine(p.x - 0.25, y, p.z, color[1], color[2], color[3], p.x + 0.25, y, p.z, color[1], color[2], color[3])
-        drawDebugLine(p.x, y, p.z - 0.25, color[1], color[2], color[3], p.x, y, p.z + 0.25, color[1], color[2], color[3])
-        drawDebugLine(p.x, y, p.z, color[1], color[2], color[3], p.x, y + 0.5, p.z, color[1], color[2], color[3])
+        drawDebugLine(p.x - 0.25, y, p.z, color[1], color[2], color[3], p.x + 0.25, y, p.z, color[1], color[2], color[3], false)
+        drawDebugLine(p.x, y, p.z - 0.25, color[1], color[2], color[3], p.x, y, p.z + 0.25, color[1], color[2], color[3], false)
+        drawDebugLine(p.x, y, p.z, color[1], color[2], color[3], p.x, y + 0.5, p.z, color[1], color[2], color[3], false)
     end
     local text = string.format("Parking nodes: %s | max gap %d m | %.1f m | %d nodes",
         self.secondary and "Secondary" or "Primary", self.spacing, self.length or 0, #(self.preview or {}))

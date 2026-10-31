@@ -1,9 +1,9 @@
 {
   "archive": "FS25_z_ADParkingNodes.zip",
-  "version": "1.0.0.6",
-  "sha256": "932c1216073cb516c8b25338dfadb8a1007ea4b0c72837ba6377a6121d00f374",
+  "version": "1.0.0.7",
+  "sha256": "095176af6b36025f4f549652aa9f4eb2d622ff99613f138add599a23a8ebb634",
   "lua51_checks": "passed",
-  "runtime_verified": true,
-  "runtime_verified_date": "2026-10-30",
-  "release_tag": "ad-parking-nodes-v1.0.0.6"
+  "runtime_verified": false,
+  "runtime_verified_date": null,
+  "release_tag": "ad-parking-nodes-v1.0.0.7"
 }
