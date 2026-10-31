@@ -1,6 +1,6 @@
 ADParkingRowPlanner = {}
 
-function ADParkingRowPlanner.points(x1, z1, x2, z2, spacing, degrees)
+function ADParkingRowPlanner.points(x1, z1, x2, z2, spacing, degrees, flipped)
     if spacing < 1 or spacing > 10 then return nil, "Spacing must be between 1 and 10 m" end
     degrees = degrees or 0
     if degrees < 0 or degrees > 180 or degrees % 5 ~= 0 then
@@ -22,10 +22,10 @@ function ADParkingRowPlanner.points(x1, z1, x2, z2, spacing, degrees)
             x, z = x1 + dx * t, z1 + dz * t
         else
             -- Chord-local circular arc. Endpoints stay under the two clicks;
-            -- reversing their order mirrors the bend to the opposite side.
+            -- Flip only the bend; preserve endpoint and travel order.
             local angle = theta * (t - 0.5)
             local along = chord / 2 + radius * math.sin(angle)
-            local across = radius * (math.cos(theta / 2) - math.cos(angle))
+            local across = radius * (math.cos(theta / 2) - math.cos(angle)) * (flipped and -1 or 1)
             x = x1 + dx / chord * along - dz / chord * across
             z = z1 + dz / chord * along + dx / chord * across
         end

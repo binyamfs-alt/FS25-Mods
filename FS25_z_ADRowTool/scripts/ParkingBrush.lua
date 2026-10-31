@@ -14,6 +14,7 @@ function ADParkingBrush.new(storeItem, cursor, customMt)
     self.supportsSecondaryDragging = false
     self.supportsTertiaryButton = true
     self.supportsFourthButton = true
+    self.supportsSnapping = true
     self.supportsPrimaryAxis = true
     self.supportsSecondaryAxis = true
     self.secondaryAxisIsContinuous = false
@@ -22,6 +23,7 @@ function ADParkingBrush.new(storeItem, cursor, customMt)
     self.secondary = false
     self.connectionMode = 0
     self.curveDegrees = 0
+    self.curveFlipped = false
     return self
 end
 
@@ -42,6 +44,8 @@ function ADParkingBrush:getButtonFourthText() return "Connection: " .. self:getC
 function ADParkingBrush:getConnectionName()
     return ({"Unconnected", "One-way", "Bidirectional"})[self.connectionMode + 1]
 end
+function ADParkingBrush:getButtonSnappingText() return "Flip curve" end
+function ADParkingBrush:getSnappingText() return "Flip curve" end
 function ADParkingBrush:getAxisSecondaryText() return "Curve angle (0-180 degrees)" end
 function ADParkingBrush:getAxisPrimaryText() return "Node spacing (1-10 m)" end
 
@@ -63,7 +67,7 @@ function ADParkingBrush:update(dt)
     self.preview = nil
     if self.target ~= nil then
         local a = self.anchor or self.target
-        self.preview, self.length = ADParkingRowPlanner.points(a.x, a.z, x, z, self.spacing, self.curveDegrees)
+        self.preview, self.length = ADParkingRowPlanner.points(a.x, a.z, x, z, self.spacing, self.curveDegrees, self.curveFlipped)
     end
 end
 
@@ -74,7 +78,7 @@ function ADParkingBrush:primary()
         self.message = nil
         return
     end
-    local points, length = ADParkingRowPlanner.points(self.anchor.x, self.anchor.z, self.target.x, self.target.z, self.spacing, self.curveDegrees)
+    local points, length = ADParkingRowPlanner.points(self.anchor.x, self.anchor.z, self.target.x, self.target.z, self.spacing, self.curveDegrees, self.curveFlipped)
     if points == nil then self.message = length; return end
     local env = _G.FS25_AutoDrive
     local graph, ad = env ~= nil and env.ADGraphManager or nil, env ~= nil and env.AutoDrive or nil
@@ -105,9 +109,9 @@ function ADParkingBrush:draw()
         drawDebugLine(p.x, y, p.z - 0.25, color[1], color[2], color[3], p.x, y, p.z + 0.25, color[1], color[2], color[3], false)
         drawDebugLine(p.x, y, p.z, color[1], color[2], color[3], p.x, y + 0.5, p.z, color[1], color[2], color[3], false)
     end
-    local text = string.format("AD Row Tool: %s | %s | curve %d deg | max gap %d m | %.1f m | %d nodes",
-        self.secondary and "Secondary" or "Primary", self:getConnectionName(), self.curveDegrees, self.spacing, self.length or 0, #(self.preview or {}))
+    local text = string.format("AD Row Tool: %s | %s | curve %d deg %s | max gap %d m | %.1f m | %d nodes",
+        self.secondary and "Secondary" or "Primary", self:getConnectionName(), self.curveDegrees, self.curveFlipped and "flipped" or "normal", self.spacing, self.length or 0, #(self.preview or {}))
     setTextColor(1, 1, 1, 1)
     renderText(0.36, 0.12, 0.017, text)
-    renderText(0.36, 0.095, 0.015, self.message or "Click start, stretch row, click to place. H: connections. N/M: spacing. K/L: curve 0-180 deg.")
+    renderText(0.36, 0.095, 0.015, self.message or "Click start, stretch row, click to place. H: connections. N/M: spacing. K/L: curve 0-180 deg. R: flip curve.")
 end

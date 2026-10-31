@@ -1,6 +1,6 @@
 # AD Row Tool
 
-**Version 1.0.0.12** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-row-tool-v1.0.0.12/FS25_z_ADRowTool.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-row-tool-v1.0.0.12)
+**Version 1.0.0.13** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-row-tool-v1.0.0.13/FS25_z_ADRowTool.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-row-tool-v1.0.0.13)
 
 Create straight or curved rows of AutoDrive nodes with two clicks. This is useful
 for lining up parking bays along farmyards, sheds and buildings.
@@ -61,6 +61,6 @@ The tool keeps its target on terrain through placeables and renders the preview 
 
 ## Curves (testing)
 
-**K / L** decrease/increase the curve by **5 degrees**, from **0 to 180 degrees**, using the Construction secondary-axis bindings. Zero is straight, 90 degrees a quarter-circle, and 180 degrees a semicircle. Click the start and end as usual; adjust the bend while previewing. Reverse the order of the endpoints to bend to the opposite side. Spacing is measured along the arc, with a 500 m maximum path length. All three connection modes apply. New paths do not automatically join existing nodes.
+**K / L** decrease/increase the curve by **5 degrees**, from **0 to 180 degrees**, using the Construction secondary-axis bindings. Zero is straight, 90 degrees a quarter-circle, and 180 degrees a semicircle. Click the start and end as usual; adjust the bend while previewing. Press **R** to flip the bend without changing endpoint order or one-way travel. Spacing is measured along the arc, with a 500 m maximum path length. All three connection modes apply. New paths do not automatically join existing nodes.
 
 When upgrading from the original filename, delete `FS25_z_ADParkingNodes.zip` and enable `FS25_z_ADRowTool.zip` instead. Do not enable both copies. Existing AutoDrive nodes and routes remain in AutoDrive's save data.

@@ -44,7 +44,7 @@ Logging={info=function()end,warning=function()end,error=function()end}
 addModEventListener=function()end
 ConstructionBrushPlaceable={new=function(item,cursor,...)return 'originalFactory',nil,select('#',...)end}
 ConstructionScreen={onButtonPrimary=function()return 'original' end,onButtonSecondary=function()end,
- onButtonTertiary=function()end,onButtonFourth=function()end,onAxisSecondary=function()end,onAxisPrimary=function()end,
+ onButtonTertiary=function()end,onButtonFourth=function()end,onButtonSnapping=function()return "originalSnap" end,onAxisSecondary=function()end,onAxisPrimary=function()end,
  draw=function(self)self.wasDrawn=true;return 4,nil,6 end,
  loadCurrentConfiguration=function(self,item) self.defaultPreviewLoaded=true;return 'standardPreview',nil,3 end}
 getTerrainHeightAtWorldPos=function(_,x,_,z)return x+z end
@@ -193,3 +193,28 @@ assert(brush.curveDegrees==0)
 ConstructionScreen.onAxisSecondary(screen,'curve',1);assert(brush.curveDegrees==5)
 ''')
 print('PASS: every 5-degree arc, all spacings, exact endpoints, semicircle radius/length, mirrored bends, path limit and angle controls.')
+
+lua.execute('''
+for angle=0,180,5 do
+ local a,l=ADParkingRowPlanner.points(10,20,40,60,3,angle,false)
+ local b,m=ADParkingRowPlanner.points(10,20,40,60,3,angle,true)
+ assert(#a==#b and l==m)
+ for i=1,#a do
+  -- Reflection across the chord changes the bend, never endpoint order.
+  local ax,az=a[i].x-10,a[i].z-20
+  local bx,bz=b[i].x-10,b[i].z-20
+  assert(math.abs((ax*30+az*40)-(bx*30+bz*40))<1e-7)
+  assert(math.abs((ax*40-az*30)+(bx*40-bz*30))<1e-7)
+ end
+ assert(b[1].x==10 and b[1].z==20 and b[#b].x==40 and b[#b].z==60)
+end
+local brush=ADParkingBrush.new({}, {getHitTerrainPosition=function()return 20,0,0 end})
+local screen={brush=brush}
+brush.anchor={x=0,z=0};brush.curveDegrees=90;brush.connectionMode=1
+brush:update(16);local z=brush.preview[2].z
+ConstructionScreen.onButtonSnapping(screen);brush:update(16)
+assert(brush.curveFlipped and brush.preview[2].z*z<0 and brush.connectionMode==1 and brush.anchor.x==0)
+ConstructionScreen.onButtonSnapping(screen);assert(not brush.curveFlipped)
+assert(ConstructionScreen.onButtonSnapping({brush={}})=='originalSnap')
+''')
+print('PASS: flip reflects every arc without reversing endpoints, spacing or travel mode; live preview and control passthrough.')
