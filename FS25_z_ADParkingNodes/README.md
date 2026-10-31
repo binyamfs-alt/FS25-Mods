@@ -12,20 +12,20 @@ Put `FS25_z_ADParkingNodes.zip` in your active mods folder and enable it alongsi
 
 ## Use
 
-1. Open **Construction > Decorations > Others > AutoDrive Parking Node Row**.
-2. Click to anchor the start, move the cursor to stretch the straight preview,
+1. Enter a vehicle and enable AutoDrive's **editor mode** to see AutoDrive nodes. This is required by AutoDrive for node visibility.
+2. Open **Construction > Decorations > Others > AutoDrive Parking Node Row**.
+3. Click to anchor the start, move the cursor to stretch the straight preview,
    then click again to place the row.
-3. Use **B** to switch primary/secondary nodes and **N / M** to adjust maximum
+4. Use **B** to switch primary/secondary nodes and **N / M** to adjust maximum
    spacing from **1-10 m**, default **5 m**. Bindings follow your Construction controls.
-4. Right-click to cancel an unfinished row; right-click again to leave the tool.
+5. Right-click to cancel an unfinished row; right-click again to leave the tool.
 
 The preview shows node count, length and type. Both endpoints are included;
 gaps are equal and never exceed the selected spacing. For example, a 35 m row
 at 5 m spacing creates eight nodes. Maximum row length is 500 m.
 
 Nodes have **no incoming or outgoing connections**. No physical decoration is
-placed, no landscaping is changed, and placement is free. Enable AutoDrive's
-editor display to inspect finished nodes. Save normally to retain them through
+placed, no landscaping is changed, and placement is free. You must be in a vehicle with AutoDrive's **editor mode** enabled to see the placed nodes. Save normally to retain them through
 AutoDrive's own configuration. Add destination names or route connections in
 AutoDrive afterward if needed.
 

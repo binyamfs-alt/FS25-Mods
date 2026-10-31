@@ -1,7 +1,7 @@
 {
   "archive": "FS25_z_ADParkingNodes.zip",
   "version": "1.0.0.7",
-  "sha256": "73336195074715195d226f39179863ba23d4513802d94971824ee5e57519bb5d",
+  "sha256": "ec5b4e6ebfa6ea8123c0b6dd0bd4e8803687407e87ab965e4c7bda5c00e7b15b",
   "lua51_checks": "passed",
   "runtime_verified": true,
   "runtime_verified_date": "2026-10-30",
