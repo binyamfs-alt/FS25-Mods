@@ -2,7 +2,11 @@ ADParkingBrush = {}
 local ADParkingBrush_mt = Class(ADParkingBrush, ConstructionBrush)
 
 function ADParkingBrush.new(storeItem, cursor, customMt)
-    local self = ConstructionBrush.new(storeItem, cursor, customMt or ADParkingBrush_mt)
+    -- ConstructionBrush.new takes the metatable, not storeItem/cursor. Passing
+    -- the store item here made the engine use it as the object's metatable.
+    local self = ConstructionBrush.new(customMt or ADParkingBrush_mt)
+    setmetatable(self, customMt or ADParkingBrush_mt)
+    self.storeItem = storeItem
     self.cursor = cursor
     self.isADParkingBrush = true
     self.supportsPrimaryButton = true

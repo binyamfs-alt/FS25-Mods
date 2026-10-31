@@ -1,4 +1,4 @@
-# Validation, 1.0.0.4
+# Validation, 1.0.0.5
 
 Lua 5.1 tests pass for spacing 1-10 m, both endpoints, diagonal rows, threshold
 node counts, independent empty connection arrays, native AD event arguments,
@@ -17,3 +17,5 @@ Runtime 1.0.0.1 rejected the unregistered adParkingNodes brush before catalog in
 Runtime 1.0.0.2 entered a normal physical-placement preview because the screen constructs the reusable brush with no store item. Version 1.0.0.3 intercepts loadCurrentConfiguration before physical preview loading. Regression tests cover deferred selection, repeat selection and unrelated preview forwarding. No saved placeholders were found in the active standard savegame2. Runtime retest pending.
 
 Version 1.0.0.4 additionally checks the loaded preview in ConstructionScreen.draw, using Placeable.configFileName (verified against installed Move Placeables and Unrestricted Placement code). Tests cover cached selection paths, store lookup, replacement, unrelated previews and nil-return forwarding. Runtime retest pending.
+
+Version 1.0.0.4 is broken: the constructor incorrectly passed the store item as the base brush metatable, causing missing activate/update methods and Construction-screen errors. Version 1.0.0.5 passes the metatable correctly, validates all five required callbacks before selection, and returns to the selector if activation fails. Regression tests now use the one-argument base constructor and execute activation/update/draw/deactivation, including invalid-constructor rollback. Runtime verification remains pending.

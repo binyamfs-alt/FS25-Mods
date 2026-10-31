@@ -39,8 +39,8 @@ assert(not ok and #calls==before) -- preflight before writing graph
 ''')
 lua.execute('''
 function Class(c,base) c.__index=c;setmetatable(c,{__index=base});return {__index=c} end
-ConstructionBrush={new=function(item,cursor,mt)return setmetatable({storeItem=item,cursor=cursor},mt)end}
-Logging={info=function()end,warning=function()end}
+ConstructionBrush={new=function(mt,...)assert(select('#',...)==0);return setmetatable({},mt)end}
+Logging={info=function()end,warning=function()end,error=function()end}
 addModEventListener=function()end
 ConstructionBrushPlaceable={new=function(item,cursor,...)return 'originalFactory',nil,select('#',...)end}
 ConstructionScreen={onButtonPrimary=function()return 'original' end,onButtonSecondary=function()end,
@@ -49,6 +49,7 @@ ConstructionScreen={onButtonPrimary=function()return 'original' end,onButtonSeco
  loadCurrentConfiguration=function(self,item) self.defaultPreviewLoaded=true;return 'standardPreview',nil,3 end}
 getTerrainHeightAtWorldPos=function(_,x,_,z)return x+z end
 g_terrainNode=1
+drawDebugLine=function()end;setTextColor=function()end;renderText=function()end
 local calls={}
 FS25_AutoDrive={AutoDrive={FLAG_NONE=0,FLAG_SUBPRIO=1},ADGraphManager={createWayPointWithConnections=function(self,...)
  calls[#calls+1]={...}
@@ -80,7 +81,10 @@ local a,b,c=ConstructionBrushPlaceable.new({xmlFilename='C:/mods/other/parkingNo
 assert(a=='originalFactory' and b==nil and c==3)
 -- Actual screen lifecycle: reusable brush constructed with no selected item.
 assert(ConstructionBrushPlaceable.new(nil,cursor)=='originalFactory')
-local deferred={cursor=cursor,brush={},setBrush=function(self,brush)self.brush=brush end}
+local deferred={cursor=cursor,brush={},selectorBrush={activate=function()end},setBrush=function(self,brush)
+ self.brush=brush
+ brush:activate() -- the real screen immediately calls the new brush
+end}
 ConstructionScreen.loadCurrentConfiguration(deferred,item)
 assert(deferred.brush.isADParkingBrush and not deferred.defaultPreviewLoaded)
 local active=deferred.brush
@@ -93,8 +97,15 @@ g_storeManager={getItemByXMLFilename=function(self,name)assert(name==item.xmlFil
 local cached={cursor=cursor,brush={placeable={configFileName=item.xmlFilename}},setBrush=deferred.setBrush}
 a,b,c=ConstructionScreen.draw(cached)
 assert(cached.brush.isADParkingBrush and cached.wasDrawn and a==4 and b==nil and c==6)
+cached.brush:update(16);cached.brush:draw();cached.brush:deactivate()
 local unrelated={cursor=cursor,brush={placeable={configFileName='C:/mods/other/shed.xml'}},setBrush=deferred.setBrush}
 local originalBrush=unrelated.brush;ConstructionScreen.draw(unrelated);assert(unrelated.brush==originalBrush)
+-- Constructor regression: broken results must not remain in the screen.
+local newBrush=ADParkingBrush.new;ADParkingBrush.new=function()return {}end
+local failed={cursor=cursor,brush={},selectorBrush={activate=function()end},setBrush=deferred.setBrush}
+assert(not ADParkingNodes.setParkingBrush(failed,item))
+assert(failed.brush==failed.selectorBrush and ADParkingNodes.activationFailed)
+ADParkingBrush.new=newBrush
 ''')
 import xml.etree.ElementTree as E
 assert E.parse(root/'parkingNodes.xml').findtext('storeData/brush/type') == 'placeable'

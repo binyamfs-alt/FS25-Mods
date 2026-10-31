@@ -1,6 +1,30 @@
 ADParkingNodes = {}
 local M = ADParkingNodes
 
+function M.newBrush(item, cursor)
+    local brush = ADParkingBrush.new(item, cursor)
+    for _, name in ipairs({"activate", "deactivate", "update", "draw", "primary"}) do
+        assert(type(brush[name]) == "function", "Invalid parking brush: missing " .. name)
+    end
+    return brush
+end
+
+function M.setParkingBrush(screen, item)
+    local ok, result = pcall(function()
+        local brush = M.newBrush(item, screen.cursor)
+        screen:setBrush(brush, true)
+        return brush
+    end)
+    if not ok then
+        M.activationFailed = true
+        -- Never leave a broken brush in the active Construction screen.
+        pcall(screen.setBrush, screen, screen.selectorBrush, true)
+        Logging.error("[ADParkingNodes] Activation disabled; returned to selection: %s", tostring(result))
+        return false
+    end
+    return true
+end
+
 function M.isOurItem(storeItem)
     local filename = storeItem
     if type(storeItem) == "table" then
@@ -14,7 +38,7 @@ end
 
 function M.activateFromPreview(screen)
     local current = screen.brush
-    if current == nil or current.isADParkingBrush then return end
+    if M.activationFailed or current == nil or current.isADParkingBrush then return end
     local item = current.storeItem
     local placeholder = current.placeable
     if not M.isOurItem(item) and not M.isOurItem(placeholder) then return end
@@ -22,9 +46,9 @@ function M.activateFromPreview(screen)
         local filename = placeholder ~= nil and placeholder.configFileName or nil
         if filename ~= nil and g_storeManager ~= nil then item = g_storeManager:getItemByXMLFilename(filename) end
     end
-    local brush = ADParkingBrush.new(item, screen.cursor)
-    screen:setBrush(brush, true)
-    Logging.info("[ADParkingNodes] ACTIVE: parking row brush replaced its loaded catalog preview.")
+    if M.setParkingBrush(screen, item) then
+        Logging.info("[ADParkingNodes] ACTIVE: parking row brush replaced its loaded catalog preview.")
+    end
 end
 
 function M.install()
@@ -42,7 +66,7 @@ function M.install()
     -- Use the registered placeable type, then select our brush only for our item.
     ConstructionBrushPlaceable.new = function(storeItem, cursor, ...)
         if M.isOurItem(storeItem) then
-            return ADParkingBrush.new(storeItem, cursor)
+            return M.newBrush(storeItem, cursor)
         end
         return factory(storeItem, cursor, ...)
     end
@@ -53,9 +77,9 @@ function M.install()
     ConstructionScreen.loadCurrentConfiguration = function(screen, storeItem, ...)
         if M.isOurItem(storeItem) then
             if screen.brush == nil or not screen.brush.isADParkingBrush then
-                local brush = ADParkingBrush.new(storeItem, screen.cursor)
-                screen:setBrush(brush, true)
-                Logging.info("[ADParkingNodes] Parking row brush activated from catalog selection.")
+                if M.setParkingBrush(screen, storeItem) then
+                    Logging.info("[ADParkingNodes] Parking row brush activated from catalog selection.")
+                end
             end
             return
         end

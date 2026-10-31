@@ -1,6 +1,8 @@
 # AutoDrive Parking Node Rows
 
-Testing version **1.0.0.4**. Detects the loaded tool preview even when a cached
+Testing version **1.0.0.5**. Corrects the base brush constructor and validates
+its callbacks before activating it. Failed activation returns to selection.
+Detects the loaded tool preview even when a cached
 construction callback bypasses catalog-selection hooks.
 Routes deferred catalog selection into the node tool,
 before a normal physical-placement preview can be loaded.
