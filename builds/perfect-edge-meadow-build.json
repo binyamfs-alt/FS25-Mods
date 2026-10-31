@@ -4,6 +4,7 @@
   "sha256": "9dda0f24da58de354a6f7b3d79d660e4ed31cbdec6c4d549a83a7a1f43622200",
   "original_perfectedge_sha256": "3b3c15a1098beadffa653168a7371d829731c21575129933568367e5d278c3c5",
   "lua51_checks": "passed",
-  "runtime_verified": false,
-  "released": false
+  "runtime_verified": true,
+  "released": false,
+  "runtime_verification": "User confirmed meadow placement works, 2026-10-30"
 }

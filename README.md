@@ -24,7 +24,7 @@ The companion is licensed under GPLv3. Its folder includes the full license, cre
 
 Testing feature branch: [Perfect Edge Meadow Companion 1.0.0.1](FS25_z_PerfectEdgeMeadow/README.md),
 [staged ZIP](builds/FS25_z_PerfectEdgeMeadow.zip). Lua 5.1 lifecycle and compatibility
-checks passed; in-game validation pending. No release published.
+checks passed; user verified meadow placement in-game on October 30, 2026. No release published.
 
 - [Harvest Ledger](https://github.com/binyamfs-alt/FS25-HarvestLedger)
 - [Storage Alert Monitor](https://github.com/binyamfs-alt/FS25-StorageAlertMonitor)

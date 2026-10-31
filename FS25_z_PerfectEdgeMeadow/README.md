@@ -1,6 +1,6 @@
 # Perfect Edge Meadow Companion
 
-Testing version **1.0.0.1**. Not released; in-game validation pending.
+Testing version **1.0.0.1**. User verified meadow placement works in-game on October 30, 2026. Not released.
 
 Enable alongside the original `FS25_PerfectEdge` mod. In Construction > Plants,
 select meadow and hold Left Shift while dragging, just as for ground painting.
@@ -13,8 +13,7 @@ third-party mod, define a second hotkey, change placement costs or permissions,
 or change crop/soil data. Original brush arguments and return values are preserved.
 Methods already inherited from the hooked paint brush are not hooked twice.
 
-Known limits: matches the API of PerfectEdge 1.1.0.0; runtime meadow placement
-still needs validation. If the required interface is absent, a warning is logged
+Known limits: matches the API of PerfectEdge 1.1.0.0; runtime meadow placement was verified by the user on October 30, 2026. If the required interface is absent, a warning is logged
 and no brush methods are changed.
 
 References: original installed PerfectEdge 1.1.0.0 was inspected read-only;
