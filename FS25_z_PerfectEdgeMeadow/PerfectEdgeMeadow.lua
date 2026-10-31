@@ -1,8 +1,6 @@
 -- Connect the foliage-painting brush to PerfectEdge's existing axis lock.
 PerfectEdgeMeadow = {}
 local M = PerfectEdgeMeadow
-local unpackValues = unpack or table.unpack
-local function pack(...) return {n = select("#", ...), ...} end
 
 function M.install()
     if M.installed then return true end
