@@ -5,7 +5,6 @@ function ADParkingBrush.new(storeItem, cursor, customMt)
     -- ConstructionBrush.new takes the metatable, not storeItem/cursor. Passing
     -- the store item here made the engine use it as the object's metatable.
     local self = ConstructionBrush.new(customMt or ADParkingBrush_mt)
-    setmetatable(self, customMt or ADParkingBrush_mt)
     self.storeItem = storeItem
     self.cursor = cursor
     self.isADParkingBrush = true

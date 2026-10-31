@@ -1,6 +1,7 @@
 # AutoDrive Parking Node Rows
 
-Testing version **1.0.0.5**. Corrects the base brush constructor and validates
+Testing version **1.0.0.6**. Leaves FS25's protected class metatable intact.
+Corrects the base brush constructor and validates
 its callbacks before activating it. Failed activation returns to selection.
 Detects the loaded tool preview even when a cached
 construction callback bypasses catalog-selection hooks.

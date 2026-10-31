@@ -1,4 +1,4 @@
-# Validation, 1.0.0.5
+# Validation, 1.0.0.6
 
 Lua 5.1 tests pass for spacing 1-10 m, both endpoints, diagonal rows, threshold
 node counts, independent empty connection arrays, native AD event arguments,
@@ -19,3 +19,5 @@ Runtime 1.0.0.2 entered a normal physical-placement preview because the screen c
 Version 1.0.0.4 additionally checks the loaded preview in ConstructionScreen.draw, using Placeable.configFileName (verified against installed Move Placeables and Unrestricted Placement code). Tests cover cached selection paths, store lookup, replacement, unrelated previews and nil-return forwarding. Runtime retest pending.
 
 Version 1.0.0.4 is broken: the constructor incorrectly passed the store item as the base brush metatable, causing missing activate/update methods and Construction-screen errors. Version 1.0.0.5 passes the metatable correctly, validates all five required callbacks before selection, and returns to the selector if activation fails. Regression tests now use the one-argument base constructor and execute activation/update/draw/deactivation, including invalid-constructor rollback. Runtime verification remains pending.
+
+Version 1.0.0.5 safely rejected activation because its redundant setmetatable attempted to change FS25's protected metatable. Version 1.0.0.6 leaves the base constructor's metatable untouched. The lifecycle test now protects metatables and exercises activation, cursor update, drawing, cancellation and invalid-constructor rollback. Runtime retest pending.

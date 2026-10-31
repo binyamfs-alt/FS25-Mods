@@ -38,7 +38,7 @@ local ok=pcall(ADParkingRowPlanner.create,graph,p,1,function(x,z) if x>10 then e
 assert(not ok and #calls==before) -- preflight before writing graph
 ''')
 lua.execute('''
-function Class(c,base) c.__index=c;setmetatable(c,{__index=base});return {__index=c} end
+function Class(c,base) c.__index=c;setmetatable(c,{__index=base});return {__index=c,__metatable='protected'} end
 ConstructionBrush={new=function(mt,...)assert(select('#',...)==0);return setmetatable({},mt)end}
 Logging={info=function()end,warning=function()end,error=function()end}
 addModEventListener=function()end
