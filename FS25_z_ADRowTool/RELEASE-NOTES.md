@@ -10,3 +10,5 @@
 In-game verification pending.
 
 R flips the curve independently of the connection direction.
+
+AutoDrive by Stephan Schlosser and the AutoDrive contributors: https://github.com/Stephan-S/FS25_AutoDrive. Requires AutoDrive separately; unofficial companion. See CREDITS.md.

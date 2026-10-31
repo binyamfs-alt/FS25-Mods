@@ -50,7 +50,9 @@ because this tool must not alter the ground. No destination names or automatic c
 ## Source and license
 
 Original companion code and artwork: BinyamFS, [MIT license](LICENSE). AutoDrive
-is a separate dependency and is not modified or redistributed. This is an
+is developed by **Stephan Schlosser and the AutoDrive contributors** and is a separate dependency, not modified or redistributed here.
+
+[Official AutoDrive project](https://github.com/Stephan-S/FS25_AutoDrive) · [AutoDrive downloads](https://github.com/Stephan-S/FS25_AutoDrive/releases) · [AutoDrive MIT license](https://github.com/Stephan-S/FS25_AutoDrive/blob/main/LICENSE) · [Credits](CREDITS.md). This is an
 unofficial companion, not endorsed by AutoDrive or GIANTS Software.
 
 Run `python test_parking_rows.py` with `lupa==2.8` installed. Run `python build.py`
