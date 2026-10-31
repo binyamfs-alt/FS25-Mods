@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0.8",
-  "runtime_verified": true,
-  "runtime_verified_date": "2026-10-30",
+  "version": "1.0.0.9",
+  "runtime_verified": false,
+  "runtime_verified_date": null,
   "tested_autodrive_version": "3.0.1.2",
   "verified": [
     "Construction menu activation",
@@ -18,5 +18,5 @@
     "Optional-area warnings from the temporary catalog preview",
     "No destination naming or automatic route connections"
   ],
-  "next_work": "Monitor public feedback"
+  "next_work": "In-game testing of connected row modes"
 }

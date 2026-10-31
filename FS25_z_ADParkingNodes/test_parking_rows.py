@@ -44,7 +44,7 @@ Logging={info=function()end,warning=function()end,error=function()end}
 addModEventListener=function()end
 ConstructionBrushPlaceable={new=function(item,cursor,...)return 'originalFactory',nil,select('#',...)end}
 ConstructionScreen={onButtonPrimary=function()return 'original' end,onButtonSecondary=function()end,
- onButtonTertiary=function()end,onAxisPrimary=function()end,
+ onButtonTertiary=function()end,onButtonFourth=function()end,onAxisPrimary=function()end,
  draw=function(self)self.wasDrawn=true;return 4,nil,6 end,
  loadCurrentConfiguration=function(self,item) self.defaultPreviewLoaded=true;return 'standardPreview',nil,3 end}
 getTerrainHeightAtWorldPos=function(_,x,_,z)return x+z end
@@ -135,3 +135,32 @@ RaycastUtil.raycastClosest=function()return 0 end
 brush:update(16);assert(brush.target==nil and brush.preview==nil)
 ''')
 print('PASS: terrain-only cursor bypasses placeables; preview lines render on top; no-hit clears target.')
+
+lua.execute('''
+-- Connected rows use native creation links without touching existing nodes.
+g_server={}
+for mode=0,2 do
+ local count=100
+ local graph={getWayPointsCount=function()return count end,
+ createWayPointWithConnections=function(self,x,y,z,out,incoming,flags,connect,reverse,dual,event)
+  assert(flags==1 and event and not reverse)
+  if mode==0 or count==100 then assert(not connect and #out==0 and #incoming==0)
+  else assert(connect and out[1]==count+1 and incoming[1]==count and dual==(mode==2)) end
+  count=count+1
+ end}
+ local points=ADParkingRowPlanner.points(0,0,10,0,5)
+ assert(ADParkingRowPlanner.create(graph,points,1,function()return 0 end,mode)==3 and count==103)
+end
+local brush=ADParkingBrush.new({}, {})
+local screen={brush=brush}
+assert(brush.connectionMode==0 and brush.supportsFourthButton)
+for expected=1,3 do
+ ConstructionScreen.onButtonFourth(screen)
+ assert(brush.connectionMode==expected%3)
+end
+g_server=nil
+local writes=0
+local ok=pcall(ADParkingRowPlanner.create,{createWayPointWithConnections=function()writes=writes+1 end},{{x=0,z=0}},0,function()return 0 end,1)
+assert(not ok and writes==0)
+''')
+print('PASS: unconnected, forward and dual links; existing nodes untouched; mode cycling; remote-client guard.')

@@ -1,6 +1,6 @@
 # AutoDrive Parking Node Rows
 
-**Version 1.0.0.8** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.8/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.8)
+**Version 1.0.0.9** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.9/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.9)
 
 Create a straight row of AutoDrive parking nodes with two clicks. This is useful
 for lining up parking bays along farmyards, sheds and buildings.
@@ -24,7 +24,9 @@ The preview shows node count, length and type. Both endpoints are included;
 gaps are equal and never exceed the selected spacing. For example, a 35 m row
 at 5 m spacing creates eight nodes. Maximum row length is 500 m.
 
-Nodes have **no incoming or outgoing connections**. No physical decoration is
+**H** cycles **Unconnected → One-way → Bidirectional** using the Construction fourth-action binding. Unconnected is the default. One-way runs from the first click toward the second. Connections are created only between adjacent nodes in the new row; existing routes are never joined automatically. Connected rows currently require single-player or the multiplayer host.
+
+In Unconnected mode, nodes have **no incoming or outgoing connections**. No physical decoration is
 placed, no landscaping is changed, and placement is free. You must be in a vehicle with AutoDrive's **editor mode** enabled to see the placed nodes. Save normally to retain them through
 AutoDrive's own configuration. Add destination names or route connections in
 AutoDrive afterward if needed.
@@ -43,8 +45,7 @@ activation rollback, input controls and unrelated-brush passthrough. See
 Multiplayer uses AutoDrive's existing network events but has not been runtime-tested.
 Selecting the tool may log warnings about missing optional clearing, indoor,
 AI and leveling areas on its temporary catalog preview. Those areas are omitted
-because this tool must not alter the ground. No destination names or automatic
-route connections are created.
+because this tool must not alter the ground. No destination names or automatic connections to existing routes are created.
 
 ## Source and license
 

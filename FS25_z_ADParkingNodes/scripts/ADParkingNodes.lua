@@ -56,7 +56,7 @@ function M.install()
     if ConstructionBrushPlaceable == nil or ConstructionScreen == nil or ConstructionBrush == nil then return false end
     local factory = ConstructionBrushPlaceable.new
     if type(factory) ~= "function" then return false end
-    for _, name in ipairs({"onButtonPrimary", "onButtonSecondary", "onButtonTertiary", "onAxisPrimary", "loadCurrentConfiguration"}) do
+    for _, name in ipairs({"onButtonPrimary", "onButtonSecondary", "onButtonTertiary", "onButtonFourth", "onAxisPrimary", "loadCurrentConfiguration"}) do
         if type(ConstructionScreen[name]) ~= "function" then
             Logging.warning("[ADParkingNodes] Required construction control unavailable: %s", name)
             return false
@@ -109,6 +109,9 @@ function M.install()
         else screen:setBrush(screen.selectorBrush, true) end
     end)
     route("onButtonTertiary", function(screen, brush) brush.secondary = not brush.secondary end)
+    route("onButtonFourth", function(screen, brush)
+        brush.connectionMode = (brush.connectionMode + 1) % 3
+    end)
     route("onAxisPrimary", function(screen, brush, actionName, value)
         if value ~= nil and value ~= 0 then brush.spacing = math.max(1, math.min(10, brush.spacing + (value > 0 and 1 or -1))) end
     end)

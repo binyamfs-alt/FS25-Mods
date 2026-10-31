@@ -13,10 +13,12 @@ function ADParkingBrush.new(storeItem, cursor, customMt)
     self.supportsSecondaryButton = true
     self.supportsSecondaryDragging = false
     self.supportsTertiaryButton = true
+    self.supportsFourthButton = true
     self.supportsPrimaryAxis = true
     self.primaryAxisIsContinuous = false
     self.spacing = 5
     self.secondary = false
+    self.connectionMode = 0
     return self
 end
 
@@ -33,6 +35,10 @@ end
 function ADParkingBrush:getButtonPrimaryText() return self.anchor and "Place parking nodes" or "Set row start" end
 function ADParkingBrush:getButtonSecondaryText() return self.anchor and "Cancel row" or "Exit parking tool" end
 function ADParkingBrush:getButtonTertiaryText() return "Toggle primary / secondary nodes" end
+function ADParkingBrush:getButtonFourthText() return "Connection: " .. self:getConnectionName() end
+function ADParkingBrush:getConnectionName()
+    return ({"Unconnected", "One-way", "Bidirectional"})[self.connectionMode + 1]
+end
 function ADParkingBrush:getAxisPrimaryText() return "Node spacing (1-10 m)" end
 
 function ADParkingBrush:update(dt)
@@ -69,11 +75,15 @@ function ADParkingBrush:primary()
     local env = _G.FS25_AutoDrive
     local graph, ad = env ~= nil and env.ADGraphManager or nil, env ~= nil and env.AutoDrive or nil
     if graph == nil or ad == nil then self.message = "AutoDrive is not available"; return end
+    if self.connectionMode ~= 0 and g_server == nil then
+        self.message = "Connected rows require the multiplayer host; use Unconnected on clients"
+        return
+    end
     local flags = self.secondary and ad.FLAG_SUBPRIO or ad.FLAG_NONE
     local count = ADParkingRowPlanner.create(graph, points, flags, function(x, z)
         return getTerrainHeightAtWorldPos(g_terrainNode, x, 0, z)
-    end)
-    self.message = string.format("Placed %d unconnected %s nodes", count, self.secondary and "secondary" or "primary")
+    end, self.connectionMode)
+    self.message = string.format("Placed %d %s %s nodes", count, self:getConnectionName():lower(), self.secondary and "secondary" or "primary")
     self.anchor, self.preview = nil, nil
     Logging.info("[ADParkingNodes] %s; length %.2f m, maximum spacing %d m", self.message, length, self.spacing)
 end
@@ -91,8 +101,8 @@ function ADParkingBrush:draw()
         drawDebugLine(p.x, y, p.z - 0.25, color[1], color[2], color[3], p.x, y, p.z + 0.25, color[1], color[2], color[3], false)
         drawDebugLine(p.x, y, p.z, color[1], color[2], color[3], p.x, y + 0.5, p.z, color[1], color[2], color[3], false)
     end
-    local text = string.format("Parking nodes: %s | max gap %d m | %.1f m | %d nodes",
-        self.secondary and "Secondary" or "Primary", self.spacing, self.length or 0, #(self.preview or {}))
+    local text = string.format("Parking nodes: %s | %s | max gap %d m | %.1f m | %d nodes",
+        self.secondary and "Secondary" or "Primary", self:getConnectionName(), self.spacing, self.length or 0, #(self.preview or {}))
     setTextColor(1, 1, 1, 1)
     renderText(0.36, 0.12, 0.017, text)
     renderText(0.36, 0.095, 0.015, self.message or "Click start, stretch row, click to place. Change spacing with brush size controls.")
