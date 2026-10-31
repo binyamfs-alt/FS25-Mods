@@ -1,17 +1,39 @@
 ADParkingRowPlanner = {}
 
-function ADParkingRowPlanner.points(x1, z1, x2, z2, spacing)
+function ADParkingRowPlanner.points(x1, z1, x2, z2, spacing, degrees)
     if spacing < 1 or spacing > 10 then return nil, "Spacing must be between 1 and 10 m" end
+    degrees = degrees or 0
+    if degrees < 0 or degrees > 180 or degrees % 5 ~= 0 then
+        return nil, "Curve must be 0-180 degrees in 5-degree steps"
+    end
     local dx, dz = x2 - x1, z2 - z1
-    local length = math.sqrt(dx * dx + dz * dz)
-    if length > 500 then return nil, "Maximum row length is 500 m" end
-    if length < 0.1 then return {{x = x1, z = z1}}, length end
+    local chord = math.sqrt(dx * dx + dz * dz)
+    local theta = math.rad(degrees)
+    local radius = degrees > 0 and chord / (2 * math.sin(theta / 2)) or nil
+    local length = radius and radius * theta or chord
+    if length > 500 then return nil, "Maximum path length is 500 m" end
+    if chord < 0.1 then return {{x = x1, z = z1}}, length end
     local intervals = math.ceil(length / spacing)
     local points = {}
     for i = 0, intervals do
         local t = i / intervals
-        points[#points + 1] = {x = x1 + dx * t, z = z1 + dz * t}
+        local x, z
+        if degrees == 0 then
+            x, z = x1 + dx * t, z1 + dz * t
+        else
+            -- Chord-local circular arc. Endpoints stay under the two clicks;
+            -- reversing their order mirrors the bend to the opposite side.
+            local angle = theta * (t - 0.5)
+            local along = chord / 2 + radius * math.sin(angle)
+            local across = radius * (math.cos(theta / 2) - math.cos(angle))
+            x = x1 + dx / chord * along - dz / chord * across
+            z = z1 + dz / chord * along + dx / chord * across
+        end
+        points[#points + 1] = {x = x, z = z}
     end
+    -- Exact endpoints avoid floating-point drift at joints.
+    points[1] = {x = x1, z = z1}
+    points[#points] = {x = x2, z = z2}
     return points, length
 end
 

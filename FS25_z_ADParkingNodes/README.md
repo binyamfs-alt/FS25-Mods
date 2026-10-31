@@ -1,6 +1,6 @@
 # AutoDrive Parking Node Rows
 
-**Version 1.0.0.9** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.9/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.9)
+**Version 1.0.0.10** · [Download ZIP](https://github.com/binyamfs-alt/FS25-Mods/releases/download/ad-parking-nodes-v1.0.0.10/FS25_z_ADParkingNodes.zip) · [Release](https://github.com/binyamfs-alt/FS25-Mods/releases/tag/ad-parking-nodes-v1.0.0.10)
 
 Create a straight row of AutoDrive parking nodes with two clicks. This is useful
 for lining up parking bays along farmyards, sheds and buildings.
@@ -58,3 +58,7 @@ to build, or `python build.py --check` to verify the committed release package.
 The GitHub Actions release workflow publishes the verified ZIP and checksum.
 
 The tool keeps its target on terrain through placeables and renders the preview over surfaces, allowing alignment with painted guides and placement inside sheds. Verified in game with AutoDrive 3.0.1.2.
+
+## Curves (testing)
+
+**K / L** decrease/increase the curve by **5 degrees**, from **0 to 180 degrees**, using the Construction secondary-axis bindings. Zero is straight, 90 degrees a quarter-circle, and 180 degrees a semicircle. Click the start and end as usual; adjust the bend while previewing. Reverse the order of the endpoints to bend to the opposite side. Spacing is measured along the arc, with a 500 m maximum path length. All three connection modes apply. New paths do not automatically join existing nodes.

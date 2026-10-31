@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0.9",
+  "version": "1.0.0.10",
   "runtime_verified": false,
   "runtime_verified_date": null,
   "tested_autodrive_version": "3.0.1.2",
@@ -18,5 +18,5 @@
     "Optional-area warnings from the temporary catalog preview",
     "No destination naming or automatic route connections"
   ],
-  "next_work": "In-game testing of connected row modes"
+  "next_work": "In-game verification of connection modes and 0-180 degree curves"
 }

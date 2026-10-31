@@ -1,7 +1,10 @@
-# 1.0.0.9 testing
+# 1.0.0.10 testing
 
-H cycles Unconnected, One-way and Bidirectional. Default: Unconnected. One-way follows start to end. Primary/secondary and spacing remain separate. Only new nodes within a row are connected. Connected modes require single-player or the multiplayer host.
-
-To see nodes, enter a vehicle and enable AutoDrive editor mode.
+- K/L adjusts circular arcs from 0 to 180 degrees in 5-degree increments.
+- H cycles Unconnected, One-way and Bidirectional.
+- B selects primary/secondary; N/M sets maximum spacing.
+- Reverse endpoint order for the opposite bend.
+- Connected modes require single-player or the multiplayer host.
+- Enter a vehicle with AutoDrive editor mode enabled to see placed nodes.
 
 In-game verification pending.

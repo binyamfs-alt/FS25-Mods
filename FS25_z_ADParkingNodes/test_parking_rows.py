@@ -44,7 +44,7 @@ Logging={info=function()end,warning=function()end,error=function()end}
 addModEventListener=function()end
 ConstructionBrushPlaceable={new=function(item,cursor,...)return 'originalFactory',nil,select('#',...)end}
 ConstructionScreen={onButtonPrimary=function()return 'original' end,onButtonSecondary=function()end,
- onButtonTertiary=function()end,onButtonFourth=function()end,onAxisPrimary=function()end,
+ onButtonTertiary=function()end,onButtonFourth=function()end,onAxisSecondary=function()end,onAxisPrimary=function()end,
  draw=function(self)self.wasDrawn=true;return 4,nil,6 end,
  loadCurrentConfiguration=function(self,item) self.defaultPreviewLoaded=true;return 'standardPreview',nil,3 end}
 getTerrainHeightAtWorldPos=function(_,x,_,z)return x+z end
@@ -164,3 +164,32 @@ local ok=pcall(ADParkingRowPlanner.create,{createWayPointWithConnections=functio
 assert(not ok and writes==0)
 ''')
 print('PASS: unconnected, forward and dual links; existing nodes untouched; mode cycling; remote-client guard.')
+
+lua.execute('''
+for degrees=0,180,5 do
+ for spacing=1,10 do
+  local points,length=ADParkingRowPlanner.points(10,20,40,60,spacing,degrees)
+  assert(points[1].x==10 and points[1].z==20)
+  assert(points[#points].x==40 and points[#points].z==60)
+  assert(#points==math.ceil(length/spacing)+1)
+  for i=2,#points do
+   local dx,dz=points[i].x-points[i-1].x,points[i].z-points[i-1].z
+   assert(math.sqrt(dx*dx+dz*dz)<=spacing+1e-8)
+  end
+ end
+end
+local p,l=ADParkingRowPlanner.points(0,0,20,0,5,180)
+assert(math.abs(l-10*math.pi)<1e-8)
+for _,v in ipairs(p) do assert(math.abs((v.x-10)^2+v.z^2-100)<1e-7 and v.z<=1e-8) end
+local q=ADParkingRowPlanner.points(20,0,0,0,5,180)
+for _,v in ipairs(q) do assert(v.z>=-1e-8) end
+assert(ADParkingRowPlanner.points(0,0,400,0,5,180)==nil)
+assert(ADParkingRowPlanner.points(0,0,10,0,5,7)==nil)
+local brush=ADParkingBrush.new({},{});local screen={brush=brush}
+for i=1,50 do ConstructionScreen.onAxisSecondary(screen,'curve',1) end
+assert(brush.curveDegrees==180)
+for i=1,50 do ConstructionScreen.onAxisSecondary(screen,'curve',-1) end
+assert(brush.curveDegrees==0)
+ConstructionScreen.onAxisSecondary(screen,'curve',1);assert(brush.curveDegrees==5)
+''')
+print('PASS: every 5-degree arc, all spacings, exact endpoints, semicircle radius/length, mirrored bends, path limit and angle controls.')

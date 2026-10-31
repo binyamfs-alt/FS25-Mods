@@ -56,7 +56,7 @@ function M.install()
     if ConstructionBrushPlaceable == nil or ConstructionScreen == nil or ConstructionBrush == nil then return false end
     local factory = ConstructionBrushPlaceable.new
     if type(factory) ~= "function" then return false end
-    for _, name in ipairs({"onButtonPrimary", "onButtonSecondary", "onButtonTertiary", "onButtonFourth", "onAxisPrimary", "loadCurrentConfiguration"}) do
+    for _, name in ipairs({"onButtonPrimary", "onButtonSecondary", "onButtonTertiary", "onButtonFourth", "onAxisPrimary", "onAxisSecondary", "loadCurrentConfiguration"}) do
         if type(ConstructionScreen[name]) ~= "function" then
             Logging.warning("[ADParkingNodes] Required construction control unavailable: %s", name)
             return false
@@ -114,6 +114,11 @@ function M.install()
     end)
     route("onAxisPrimary", function(screen, brush, actionName, value)
         if value ~= nil and value ~= 0 then brush.spacing = math.max(1, math.min(10, brush.spacing + (value > 0 and 1 or -1))) end
+    end)
+    route("onAxisSecondary", function(screen, brush, actionName, value)
+        if value ~= nil and value ~= 0 then
+            brush.curveDegrees = math.max(0, math.min(180, brush.curveDegrees + (value > 0 and 5 or -5)))
+        end
     end)
     M.installed = true
     Logging.info("[ADParkingNodes] Parking tool factory registered for Decorations > Others.")
