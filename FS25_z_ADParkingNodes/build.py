@@ -13,7 +13,7 @@ status = json.loads((root / 'status.json').read_text())
 assert status['version'] == version and status['runtime_verified']
 buffer = io.BytesIO()
 with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_STORED) as z:
-    for p in sorted(root.rglob('*')):
+    for p in sorted(root.rglob('*'), key=lambda item: item.relative_to(root).as_posix()):
         if not p.is_file() or not (p.suffix in ['.lua', '.xml', '.dds', '.i3d', '.md'] or p.name == 'LICENSE'):
             continue
         name = p.relative_to(root).as_posix()
