@@ -1,4 +1,4 @@
-# Validation, 1.0.0.1
+# Validation, 1.0.0.2
 
 Lua 5.1 tests pass for spacing 1-10 m, both endpoints, diagonal rows, threshold
 node counts, independent empty connection arrays, native AD event arguments,
@@ -11,3 +11,5 @@ I3D, texture, mipmap and packaged-file checks pass. Overall result remains FAIL:
   those are deliberately absent for a graph-only tool. Price zero is intentional.
 
 No editor/engine/UI test was run; Construction-menu runtime validation is pending.
+
+Runtime 1.0.0.1 rejected the unregistered adParkingNodes brush before catalog insertion. Version 1.0.0.2 uses the registered placeable type and routes only this mod's XML through its custom brush. A regression check verifies the XML type and preserves unrelated factory calls and nil return values. Runtime retest pending.

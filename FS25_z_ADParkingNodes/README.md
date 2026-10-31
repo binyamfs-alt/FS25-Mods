@@ -1,6 +1,8 @@
 # AutoDrive Parking Node Rows
 
-Testing version **1.0.0.1**. Lua 5.1 geometry, input routing and AutoDrive API
+Testing version **1.0.0.2**. Fixes 1.0.0.1's unknown-brush catalog rejection by
+using the registered placement type and an item-specific brush factory.
+Lua 5.1 geometry, input routing and AutoDrive API
 checks passed. Construction-menu behavior still needs in-game validation.
 No public release or merge authorized.
 

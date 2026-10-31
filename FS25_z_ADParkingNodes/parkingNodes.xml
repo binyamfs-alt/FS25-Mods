@@ -6,7 +6,7 @@
   <image>store_parkingNodes.dds</image><price>0</price><dailyUpkeep>0</dailyUpkeep><lifetime>1000</lifetime>
   <brand>NONE</brand><species>PLACEABLE</species><category>decoration</category>
   <showInStore>true</showInStore>
-  <brush><type>adParkingNodes</type><category>decoration</category><tab>uncategorized</tab></brush>
+  <brush><type>placeable</type><category>decoration</category><tab>uncategorized</tab></brush>
  </storeData>
  <base><filename>parkingNodes.i3d</filename></base>
 </placeable>

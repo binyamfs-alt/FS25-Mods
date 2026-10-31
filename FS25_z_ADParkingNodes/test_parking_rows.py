@@ -42,7 +42,7 @@ function Class(c,base) c.__index=c;setmetatable(c,{__index=base});return {__inde
 ConstructionBrush={new=function(item,cursor,mt)return setmetatable({storeItem=item,cursor=cursor},mt)end}
 Logging={info=function()end,warning=function()end}
 addModEventListener=function()end
-g_constructionBrushTypeManager={getClassObjectByTypeName=function(self,n)return n end}
+ConstructionBrushPlaceable={new=function(item,cursor,...)return 'originalFactory',nil,select('#',...)end}
 ConstructionScreen={onButtonPrimary=function()return 'original' end,onButtonSecondary=function()end,
  onButtonTertiary=function()end,onAxisPrimary=function()end}
 getTerrainHeightAtWorldPos=function(_,x,_,z)return x+z end
@@ -71,7 +71,12 @@ ConstructionScreen.onButtonSecondary(s);assert(b.anchor==nil)
 ConstructionScreen.onButtonSecondary(s);assert(s.brush==s.selectorBrush)
 assert(ConstructionScreen.onButtonPrimary(s)=='original')
 local fn=ConstructionScreen.onButtonPrimary;ADParkingNodes.install();assert(fn==ConstructionScreen.onButtonPrimary)
-assert(g_constructionBrushTypeManager:getClassObjectByTypeName('adParkingNodes')==ADParkingBrush)
-assert(g_constructionBrushTypeManager:getClassObjectByTypeName('paint')=='paint')
+local item={xmlFilename='C:/mods/FS25_z_ADParkingNodes/parkingNodes.xml'}
+local custom=ConstructionBrushPlaceable.new(item,cursor)
+assert(custom.isADParkingBrush and custom.storeItem==item)
+local a,b,c=ConstructionBrushPlaceable.new({xmlFilename='C:/mods/other/parkingNodes.xml'},cursor,1,nil,3)
+assert(a=='originalFactory' and b==nil and c==3)
 ''')
+import xml.etree.ElementTree as E
+assert E.parse(root/'parkingNodes.xml').findtext('storeData/brush/type') == 'placeable'
 print('PASS: Lua 5.1 spacing 1-10 m, endpoints, diagonal geometry, node-count thresholds, empty connections, AD network API, preflight, preview, confirm/cancel, type switch, controls, unrelated brushes and idempotence.')

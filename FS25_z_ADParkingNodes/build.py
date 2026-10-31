@@ -10,7 +10,7 @@ with zipfile.ZipFile(target) as z:
     assert z.testzip() is None
     for n in z.namelist():
         if n.endswith(('.xml','.i3d')): E.fromstring(z.read(n))
-record={'archive':target.name,'version':'1.0.0.1','sha256':hashlib.sha256(target.read_bytes()).hexdigest(),
+record={'archive':target.name,'version':E.parse(root/'modDesc.xml').findtext('version'),'sha256':hashlib.sha256(target.read_bytes()).hexdigest(),
         'lua51_checks':'passed','runtime_verified':False,'released':False}
 (target.parent/'ad-parking-nodes-build.json').write_text(json.dumps(record,indent=2)+'\n')
 print(json.dumps(record,indent=2))

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modDesc descVersion="113">
- <author>BinyamFS</author><version>1.0.0.1</version>
+ <author>BinyamFS</author><version>1.0.0.2</version>
  <title><en>AutoDrive Parking Node Rows</en></title>
  <description><en><![CDATA[Place straight rows of unconnected AutoDrive parking nodes from Construction, Decorations, Others. Primary or secondary nodes; adjustable maximum spacing from 1 to 10 metres.
+Changelog 1.0.0.2: Correct construction catalog registration.
 Changelog 1.0.0.1: Initial testing build.]]></en><de><![CDATA[Gerade Reihen unverbundener AutoDrive-Parkknoten im Baumenü unter Dekorationen, Sonstiges setzen. Primäre oder sekundäre Knoten; maximaler Abstand von 1 bis 10 Metern einstellbar.
+Changelog 1.0.0.2: Registrierung im Baumenü korrigiert.
 Changelog 1.0.0.1: Erste Testversion.]]></de></description>
  <iconFilename>icon_ADParkingNodes.dds</iconFilename>
  <multiplayer supported="true"/>

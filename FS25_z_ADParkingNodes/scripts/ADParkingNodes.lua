@@ -3,19 +3,26 @@ local M = ADParkingNodes
 
 function M.install()
     if M.installed then return true end
-    local manager = g_constructionBrushTypeManager
-    if manager == nil or ConstructionScreen == nil or ConstructionBrush == nil then return false end
-    local resolver = manager.getClassObjectByTypeName
-    if type(resolver) ~= "function" then return false end
+    if ConstructionBrushPlaceable == nil or ConstructionScreen == nil or ConstructionBrush == nil then return false end
+    local factory = ConstructionBrushPlaceable.new
+    if type(factory) ~= "function" then return false end
     for _, name in ipairs({"onButtonPrimary", "onButtonSecondary", "onButtonTertiary", "onAxisPrimary"}) do
         if type(ConstructionScreen[name]) ~= "function" then
             Logging.warning("[ADParkingNodes] Required construction control unavailable: %s", name)
             return false
         end
     end
-    manager.getClassObjectByTypeName = function(self, name, ...)
-        if name == "adParkingNodes" or name == "FS25_z_ADParkingNodes.adParkingNodes" then return ADParkingBrush end
-        return resolver(self, name, ...)
+    -- The catalog validates brush types before asking for their class object.
+    -- Use the registered placeable type, then select our brush only for our item.
+    ConstructionBrushPlaceable.new = function(storeItem, cursor, ...)
+        local filename = type(storeItem) == "table" and storeItem.xmlFilename or storeItem
+        if type(filename) == "string" then
+            filename = filename:gsub("\\", "/"):lower()
+            if filename:match("/fs25_z_adparkingnodes/parkingnodes%.xml$") ~= nil then
+                return ADParkingBrush.new(storeItem, cursor)
+            end
+        end
+        return factory(storeItem, cursor, ...)
     end
     local function route(name, callback)
         local previous = ConstructionScreen[name]
@@ -35,7 +42,7 @@ function M.install()
         if value ~= nil and value ~= 0 then brush.spacing = math.max(1, math.min(10, brush.spacing + (value > 0 and 1 or -1))) end
     end)
     M.installed = true
-    Logging.info("[ADParkingNodes] Parking Node Row available in Decorations > Others.")
+    Logging.info("[ADParkingNodes] Parking tool factory registered for Decorations > Others.")
     return true
 end
 
