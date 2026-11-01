@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modDesc descVersion="113">
+ <author>BinyamFS</author><version>1.1.0.0</version>
+ <title><en>AD Row Tool</en></title>
+ <description><en><![CDATA[Create straight or curved AutoDrive node paths from Construction > Decorations > Others, using the free Construction camera.
+B: Primary/secondary nodes. H: Unconnected, One-way or Bidirectional. N/M: maximum spacing 1-10 m. K/L: curve 0-180 degrees in 5-degree steps. R: flip the curve without reversing travel.
+Click the start, stretch the preview, then click the end. One-way travel follows start to end. Existing routes are not joined automatically.
+To see the placed nodes, you must be in a vehicle with AutoDrive's editor mode enabled.
+Connected modes require single-player or the multiplayer host. Multiplayer has not been runtime-tested.
+AutoDrive: Stephan Schlosser and the AutoDrive contributors. Official project: https://github.com/Stephan-S/FS25_AutoDrive
+Requires AutoDrive separately. Unofficial companion; not endorsed by the AutoDrive team. AutoDrive is not included or modified.
+Changelog 1.1.0.0: AD Row Tool rename; optional connections, adjustable curves, independent curve flip, live F1 connection label and cursor initialization fix.]]></en><de><![CDATA[Gerade oder gebogene AutoDrive-Knotenpfade mit der freien Baukamera unter Dekorationen > Sonstiges erstellen.
+B: Haupt-/Nebenstrecke. H: Unverbunden, Einbahn oder bidirektional. N/M: maximaler Abstand 1-10 m. K/L: Kurve 0-180 Grad in 5-Grad-Schritten. R: Kurve spiegeln, ohne die Fahrtrichtung zu ändern.
+Start anklicken, Vorschau aufziehen und Ende anklicken. Einbahn folgt vom Start zum Ende. Bestehende Strecken werden nicht automatisch verbunden.
+Um die Knoten zu sehen, müssen Sie sich in einem Fahrzeug befinden und den Editormodus von AutoDrive aktivieren.
+Verbundene Pfade erfordern Einzelspieler oder den Multiplayer-Host. Multiplayer wurde nicht im Spiel getestet.
+AutoDrive: Stephan Schlosser und die AutoDrive-Mitwirkenden. Offizielles Projekt: https://github.com/Stephan-S/FS25_AutoDrive
+AutoDrive muss separat installiert werden. Inoffizielle Erweiterung; AutoDrive wird nicht mitgeliefert oder verändert.
+Changelog 1.1.0.0: Neuer Name AD Row Tool; optionale Verbindungen, Kurven, Spiegelung, aktualisierte F1-Anzeige und korrigierte Cursorinitialisierung.]]></de></description>
+ <iconFilename>icon_ADParkingNodes.dds</iconFilename>
+ <multiplayer supported="true"/>
+ <dependencies><dependency>FS25_AutoDrive</dependency></dependencies>
+ <extraSourceFiles>
+  <sourceFile filename="scripts/RowPlanner.lua"/>
+  <sourceFile filename="scripts/ParkingBrush.lua"/>
+  <sourceFile filename="scripts/ADParkingNodes.lua"/>
+ </extraSourceFiles>
+ <storeItems><storeItem xmlFilename="parkingNodes.xml"/></storeItems>
+</modDesc>

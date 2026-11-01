@@ -44,7 +44,7 @@ Logging={info=function()end,warning=function()end,error=function()end}
 addModEventListener=function()end
 ConstructionBrushPlaceable={new=function(item,cursor,...)return 'originalFactory',nil,select('#',...)end}
 ConstructionScreen={onButtonPrimary=function()return 'original' end,onButtonSecondary=function()end,
- onButtonTertiary=function()end,onAxisPrimary=function()end,
+ onButtonTertiary=function()end,onButtonFourth=function()end,onButtonSnapping=function()return "originalSnap" end,onAxisSecondary=function()end,onAxisPrimary=function()end,
  draw=function(self)self.wasDrawn=true;return 4,nil,6 end,
  loadCurrentConfiguration=function(self,item) self.defaultPreviewLoaded=true;return 'standardPreview',nil,3 end}
 getTerrainHeightAtWorldPos=function(_,x,_,z)return x+z end
@@ -74,7 +74,7 @@ ConstructionScreen.onButtonSecondary(s);assert(b.anchor==nil)
 ConstructionScreen.onButtonSecondary(s);assert(s.brush==s.selectorBrush)
 assert(ConstructionScreen.onButtonPrimary(s)=='original')
 local fn=ConstructionScreen.onButtonPrimary;ADParkingNodes.install();assert(fn==ConstructionScreen.onButtonPrimary)
-local item={xmlFilename='C:/mods/FS25_z_ADParkingNodes/parkingNodes.xml'}
+local item={xmlFilename='C:/mods/FS25_z_ADRowTool/parkingNodes.xml'}
 local custom=ConstructionBrushPlaceable.new(item,cursor)
 assert(custom.isADParkingBrush and custom.storeItem==item)
 local a,b,c=ConstructionBrushPlaceable.new({xmlFilename='C:/mods/other/parkingNodes.xml'},cursor,1,nil,3)
@@ -135,3 +135,114 @@ RaycastUtil.raycastClosest=function()return 0 end
 brush:update(16);assert(brush.target==nil and brush.preview==nil)
 ''')
 print('PASS: terrain-only cursor bypasses placeables; preview lines render on top; no-hit clears target.')
+
+lua.execute('''
+-- Connected rows use native creation links without touching existing nodes.
+g_server={}
+for mode=0,2 do
+ local count=100
+ local graph={getWayPointsCount=function()return count end,
+ createWayPointWithConnections=function(self,x,y,z,out,incoming,flags,connect,reverse,dual,event)
+  assert(flags==1 and event and not reverse)
+  if mode==0 or count==100 then assert(not connect and #out==0 and #incoming==0)
+  else assert(connect and out[1]==count+1 and incoming[1]==count and dual==(mode==2)) end
+  count=count+1
+ end}
+ local points=ADParkingRowPlanner.points(0,0,10,0,5)
+ assert(ADParkingRowPlanner.create(graph,points,1,function()return 0 end,mode)==3 and count==103)
+end
+local brush=ADParkingBrush.new({}, {})
+local screen={brush=brush}
+assert(brush.connectionMode==0 and brush.supportsFourthButton)
+for expected=1,3 do
+ ConstructionScreen.onButtonFourth(screen)
+ assert(brush.connectionMode==expected%3)
+end
+g_server=nil
+local writes=0
+local ok=pcall(ADParkingRowPlanner.create,{createWayPointWithConnections=function()writes=writes+1 end},{{x=0,z=0}},0,function()return 0 end,1)
+assert(not ok and writes==0)
+''')
+print('PASS: unconnected, forward and dual links; existing nodes untouched; mode cycling; remote-client guard.')
+
+lua.execute('''
+for degrees=0,180,5 do
+ for spacing=1,10 do
+  local points,length=ADParkingRowPlanner.points(10,20,40,60,spacing,degrees)
+  assert(points[1].x==10 and points[1].z==20)
+  assert(points[#points].x==40 and points[#points].z==60)
+  assert(#points==math.ceil(length/spacing)+1)
+  for i=2,#points do
+   local dx,dz=points[i].x-points[i-1].x,points[i].z-points[i-1].z
+   assert(math.sqrt(dx*dx+dz*dz)<=spacing+1e-8)
+  end
+ end
+end
+local p,l=ADParkingRowPlanner.points(0,0,20,0,5,180)
+assert(math.abs(l-10*math.pi)<1e-8)
+for _,v in ipairs(p) do assert(math.abs((v.x-10)^2+v.z^2-100)<1e-7 and v.z<=1e-8) end
+local q=ADParkingRowPlanner.points(20,0,0,0,5,180)
+for _,v in ipairs(q) do assert(v.z>=-1e-8) end
+assert(ADParkingRowPlanner.points(0,0,400,0,5,180)==nil)
+assert(ADParkingRowPlanner.points(0,0,10,0,5,7)==nil)
+local brush=ADParkingBrush.new({},{});local screen={brush=brush}
+for i=1,50 do ConstructionScreen.onAxisSecondary(screen,'curve',1) end
+assert(brush.curveDegrees==180)
+for i=1,50 do ConstructionScreen.onAxisSecondary(screen,'curve',-1) end
+assert(brush.curveDegrees==0)
+ConstructionScreen.onAxisSecondary(screen,'curve',1);assert(brush.curveDegrees==5)
+''')
+print('PASS: every 5-degree arc, all spacings, exact endpoints, semicircle radius/length, mirrored bends, path limit and angle controls.')
+
+lua.execute('''
+for angle=0,180,5 do
+ local a,l=ADParkingRowPlanner.points(10,20,40,60,3,angle,false)
+ local b,m=ADParkingRowPlanner.points(10,20,40,60,3,angle,true)
+ assert(#a==#b and l==m)
+ for i=1,#a do
+  -- Reflection across the chord changes the bend, never endpoint order.
+  local ax,az=a[i].x-10,a[i].z-20
+  local bx,bz=b[i].x-10,b[i].z-20
+  assert(math.abs((ax*30+az*40)-(bx*30+bz*40))<1e-7)
+  assert(math.abs((ax*40-az*30)+(bx*40-bz*30))<1e-7)
+ end
+ assert(b[1].x==10 and b[1].z==20 and b[#b].x==40 and b[#b].z==60)
+end
+local brush=ADParkingBrush.new({}, {getHitTerrainPosition=function()return 20,0,0 end})
+local screen={brush=brush}
+brush.anchor={x=0,z=0};brush.curveDegrees=90;brush.connectionMode=1
+brush:update(16);local z=brush.preview[2].z
+ConstructionScreen.onButtonSnapping(screen);brush:update(16)
+assert(brush.curveFlipped and brush.preview[2].z*z<0 and brush.connectionMode==1 and brush.anchor.x==0)
+ConstructionScreen.onButtonSnapping(screen);assert(not brush.curveFlipped)
+assert(ConstructionScreen.onButtonSnapping({brush={}})=='originalSnap')
+''')
+print('PASS: flip reflects every arc without reversing endpoints, spacing or travel mode; live preview and control passthrough.')
+
+lua.execute('''
+local brush=ADParkingBrush.new({},{});brush.anchor={x=1,z=2}
+local screen={brush=brush,fourthBrushEvent=42}
+local labels={}
+g_inputBinding={setActionEventText=function(self,event,text)
+ assert(event==42);labels[#labels+1]=text
+end}
+ConstructionScreen.onButtonFourth(screen)
+ConstructionScreen.onButtonFourth(screen)
+ConstructionScreen.onButtonFourth(screen)
+assert(labels[1]=='Connection: One-way' and labels[2]=='Connection: Bidirectional' and labels[3]=='Connection: Unconnected')
+assert(brush.anchor.x==1 and brush.anchor.z==2)
+g_inputBinding=nil
+''')
+print('PASS: F1 connection label refreshes through all three modes without clearing the current path.')
+
+lua.execute('''
+RaycastUtil={raycastClosest=function()error('incomplete ray must not reach engine')end}
+for _,ray in ipairs({{}, {x=1}, {x=1,y=2,z=3,dx=0,dy=-1}, {x=0/0,y=2,z=3,dx=0,dy=-1,dz=0}}) do
+ local brush=ADParkingBrush.new({}, {ray=ray,getHitTerrainPosition=function()return nil end})
+ brush:update(16)
+ assert(brush.target==nil and brush.preview==nil)
+end
+local brush=ADParkingBrush.new({}, {ray={},getHitTerrainPosition=function()return 10,0,20 end})
+brush:update(16);assert(brush.target.x==10 and brush.target.z==20)
+''')
+print('PASS: activation frames with missing or invalid ray components never call engine raycast; cursor fallback remains usable.')

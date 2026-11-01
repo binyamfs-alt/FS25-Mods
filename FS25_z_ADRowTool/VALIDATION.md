@@ -1,4 +1,8 @@
-# Validation: 1.0.0.6
+# Validation: 1.1.0.0
+
+Final 2026-10-31 session loaded 1.0.0.15, activated the tool and logged seven successful connected placements (primary and secondary). Zero script errors, Lua error stacks or raycast type errors were present. Four previously documented optional-area warnings remain. User screenshots also verify bidirectional curves and flip controls. Release Lua is byte-identical to tested 1.0.0.15. Multiplayer remains untested.
+
+## Historical validation: 1.0.0.6
 
 ## In-game test, October 30, 2026
 
@@ -38,3 +42,6 @@ licensing and reproducible packaging only.
 
 ## 1.0.0.7
 Terrain-only targeting and on-top preview regression checks pass in Lua 5.1. User verified painted guides and shed placement in game on 2026-10-30 with AutoDrive 3.0.1.2.
+
+## Pre-release log check, 2026-10-31
+Build 1.0.0.14 logged repeated raycastClosest errors while the cursor ray was uninitialized during Construction activation. Build 1.0.0.15 validates all six components before raycasting and falls back to the existing cursor terrain hit until ready. Lua regression checks pass; fresh in-game confirmation subsequently passed as documented above.

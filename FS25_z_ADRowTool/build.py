@@ -3,7 +3,7 @@ import argparse, hashlib, io, json, subprocess, sys, zipfile
 import xml.etree.ElementTree as E
 
 root = Path(__file__).resolve().parent
-target = root.parent / 'builds/FS25_z_ADParkingNodes.zip'
+target = root.parent / 'builds/FS25_z_ADRowTool.zip'
 parser = argparse.ArgumentParser()
 parser.add_argument('--check', action='store_true', help='Verify committed package without changing it')
 args = parser.parse_args()
@@ -33,9 +33,9 @@ digest = hashlib.sha256(package).hexdigest()
 record = {'archive': target.name, 'version': version, 'sha256': digest,
           'lua51_checks': 'passed', 'runtime_verified': status['runtime_verified'],
           'runtime_verified_date': status['runtime_verified_date'],
-          'release_tag': 'ad-parking-nodes-v' + version}
-metadata = target.parent / 'ad-parking-nodes-build.json'
-checksums = target.parent / 'SHA256SUMS-ad-parking-nodes.txt'
+          'release_tag': 'ad-row-tool-v' + version}
+metadata = target.parent / 'ad-row-tool-build.json'
+checksums = target.parent / 'SHA256SUMS-ad-row-tool.txt'
 if args.check:
     assert target.read_bytes() == package, 'Committed ZIP differs from source'
     assert json.loads(metadata.read_text()) == record, 'Build metadata mismatch'

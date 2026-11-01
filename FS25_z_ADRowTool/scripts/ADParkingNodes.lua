@@ -33,7 +33,7 @@ function M.isOurItem(storeItem)
     end
     if type(filename) ~= "string" then return false end
     filename = filename:gsub("\\", "/"):lower()
-    return ("/" .. filename):match("/fs25_z_adparkingnodes/parkingnodes%.xml$") ~= nil
+    return ("/" .. filename):match("/fs25_z_adrowtool/parkingnodes%.xml$") ~= nil
 end
 
 function M.activateFromPreview(screen)
@@ -56,7 +56,7 @@ function M.install()
     if ConstructionBrushPlaceable == nil or ConstructionScreen == nil or ConstructionBrush == nil then return false end
     local factory = ConstructionBrushPlaceable.new
     if type(factory) ~= "function" then return false end
-    for _, name in ipairs({"onButtonPrimary", "onButtonSecondary", "onButtonTertiary", "onAxisPrimary", "loadCurrentConfiguration"}) do
+    for _, name in ipairs({"onButtonPrimary", "onButtonSecondary", "onButtonTertiary", "onButtonFourth", "onAxisPrimary", "onAxisSecondary", "onButtonSnapping", "loadCurrentConfiguration"}) do
         if type(ConstructionScreen[name]) ~= "function" then
             Logging.warning("[ADParkingNodes] Required construction control unavailable: %s", name)
             return false
@@ -109,8 +109,24 @@ function M.install()
         else screen:setBrush(screen.selectorBrush, true) end
     end)
     route("onButtonTertiary", function(screen, brush) brush.secondary = not brush.secondary end)
+    route("onButtonFourth", function(screen, brush)
+        brush.connectionMode = (brush.connectionMode + 1) % 3
+        -- Construction caches help text when registering the brush. Refresh
+        -- its existing event instead of rebuilding controls or losing the row.
+        if screen.fourthBrushEvent ~= nil and g_inputBinding ~= nil then
+            g_inputBinding:setActionEventText(screen.fourthBrushEvent, brush:getButtonFourthText())
+        end
+    end)
+    route("onButtonSnapping", function(screen, brush)
+        brush.curveFlipped = not brush.curveFlipped
+    end)
     route("onAxisPrimary", function(screen, brush, actionName, value)
         if value ~= nil and value ~= 0 then brush.spacing = math.max(1, math.min(10, brush.spacing + (value > 0 and 1 or -1))) end
+    end)
+    route("onAxisSecondary", function(screen, brush, actionName, value)
+        if value ~= nil and value ~= 0 then
+            brush.curveDegrees = math.max(0, math.min(180, brush.curveDegrees + (value > 0 and 5 or -5)))
+        end
     end)
     M.installed = true
     Logging.info("[ADParkingNodes] Parking tool factory registered for Decorations > Others.")
