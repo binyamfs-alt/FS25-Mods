@@ -1,4 +1,4 @@
-name: Release AutoDrive Parking Node Rows
+name: Release AD Row Tool
 on:
   push:
     branches: [main]
@@ -36,5 +36,5 @@ jobs:
           version=$(python -c "import json; print(json.load(open('builds/ad-row-tool-build.json'))['version'])")
           tag="ad-row-tool-v$version"
           if ! gh release view "$tag" >/dev/null 2>&1; then
-            gh release create "$tag" --target "$GITHUB_SHA" --title "AutoDrive Parking Node Rows $version" --notes-file FS25_z_ADRowTool/RELEASE-NOTES.md builds/FS25_z_ADRowTool.zip builds/SHA256SUMS-ad-row-tool.txt
+            gh release create "$tag" --target "$GITHUB_SHA" --title "AD Row Tool $version" --notes-file FS25_z_ADRowTool/RELEASE-NOTES.md builds/FS25_z_ADRowTool.zip builds/SHA256SUMS-ad-row-tool.txt
           fi

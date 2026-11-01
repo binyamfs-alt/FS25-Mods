@@ -1,7 +1,7 @@
 {
-  "version": "1.0.0.15",
-  "runtime_verified": false,
-  "runtime_verified_date": null,
+  "version": "1.1.0.0",
+  "runtime_verified": true,
+  "runtime_verified_date": "2026-10-31",
   "tested_autodrive_version": "3.0.1.2",
   "verified": [
     "Construction menu activation",
@@ -11,12 +11,18 @@
     "Adjustable maximum spacing",
     "Targeting across painted line placeables",
     "Row placement inside shed bays",
-    "Preview visible over placeable surfaces"
+    "Preview visible over placeable surfaces",
+    "One-way primary/secondary placement",
+    "Bidirectional curved placement",
+    "Curve angle and flip controls",
+    "F1 connection label fix",
+    "Cursor initialization: final test log zero script errors"
   ],
   "known_limits": [
-    "Multiplayer not runtime-tested",
-    "Optional-area warnings from the temporary catalog preview",
-    "No destination naming or automatic route connections"
+    "Multiplayer not runtime-tested; connected modes host-only",
+    "Optional-area warnings from temporary catalog preview",
+    "No automatic joining to existing routes or destination naming"
   ],
-  "next_work": "In-game verification of connection modes and 0-180 degree curves"
+  "next_work": "Monitor public feedback",
+  "tested_fs25_version": "1.25.0.0"
 }

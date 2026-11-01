@@ -2,7 +2,7 @@
 <placeable type="simplePlaceable">
  <storeData>
   <name>AD Row Tool</name>
-  <functions><function>Create unconnected parking nodes along a straight row.</function></functions>
+  <functions><function>Create straight or curved AutoDrive node paths with optional one-way or bidirectional connections.</function></functions>
   <image>store_parkingNodes.dds</image><price>0</price><dailyUpkeep>0</dailyUpkeep><lifetime>1000</lifetime>
   <brand>NONE</brand><species>PLACEABLE</species><category>decoration</category>
   <showInStore>true</showInStore>
