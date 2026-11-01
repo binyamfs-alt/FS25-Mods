@@ -234,3 +234,15 @@ assert(brush.anchor.x==1 and brush.anchor.z==2)
 g_inputBinding=nil
 ''')
 print('PASS: F1 connection label refreshes through all three modes without clearing the current path.')
+
+lua.execute('''
+RaycastUtil={raycastClosest=function()error('incomplete ray must not reach engine')end}
+for _,ray in ipairs({{}, {x=1}, {x=1,y=2,z=3,dx=0,dy=-1}, {x=0/0,y=2,z=3,dx=0,dy=-1,dz=0}}) do
+ local brush=ADParkingBrush.new({}, {ray=ray,getHitTerrainPosition=function()return nil end})
+ brush:update(16)
+ assert(brush.target==nil and brush.preview==nil)
+end
+local brush=ADParkingBrush.new({}, {ray={},getHitTerrainPosition=function()return 10,0,20 end})
+brush:update(16);assert(brush.target.x==10 and brush.target.z==20)
+''')
+print('PASS: activation frames with missing or invalid ray components never call engine raycast; cursor fallback remains usable.')

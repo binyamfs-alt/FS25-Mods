@@ -55,7 +55,17 @@ function ADParkingBrush:update(dt)
     -- invalidate the target or pull parking nodes up onto a building.
     local x, y, z
     local ray = self.cursor.ray
-    if ray ~= nil then
+    -- Construction can expose an empty ray for several activation frames.
+    -- Never pass missing/non-finite coordinates into the engine raycast.
+    local validRay = ray ~= nil
+    for _, key in ipairs({"x", "y", "z", "dx", "dy", "dz"}) do
+        local value = ray ~= nil and ray[key] or nil
+        if type(value) ~= "number" or value ~= value or value == math.huge or value == -math.huge then
+            validRay = false
+            break
+        end
+    end
+    if validRay then
         local id
         id, x, y, z = RaycastUtil.raycastClosest(ray.x, ray.y, ray.z,
             ray.dx, ray.dy, ray.dz, GuiTopDownCursor.RAYCAST_DISTANCE, CollisionFlag.TERRAIN)

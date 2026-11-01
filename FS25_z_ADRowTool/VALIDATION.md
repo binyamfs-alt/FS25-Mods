@@ -38,3 +38,6 @@ licensing and reproducible packaging only.
 
 ## 1.0.0.7
 Terrain-only targeting and on-top preview regression checks pass in Lua 5.1. User verified painted guides and shed placement in game on 2026-10-30 with AutoDrive 3.0.1.2.
+
+## Pre-release log check, 2026-10-31
+Build 1.0.0.14 logged repeated raycastClosest errors while the cursor ray was uninitialized during Construction activation. Build 1.0.0.15 validates all six components before raycasting and falls back to the existing cursor terrain hit until ready. Lua regression checks pass; fresh in-game log confirmation is required before 1.1.0.0 publication.

@@ -1,9 +1,9 @@
 {
   "archive": "FS25_z_ADRowTool.zip",
-  "version": "1.0.0.14",
-  "sha256": "cdacc4315d7bf9ac7701e32121cc1d7a2e596cf479d12099ce349b928e9511e4",
+  "version": "1.0.0.15",
+  "sha256": "b51db62657b13bd4414df93b321bc7b999b802466830c25f72cc1dcaa8b5c348",
   "lua51_checks": "passed",
   "runtime_verified": false,
   "runtime_verified_date": null,
-  "release_tag": "ad-row-tool-v1.0.0.14"
+  "release_tag": "ad-row-tool-v1.0.0.15"
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modDesc descVersion="113">
- <author>BinyamFS</author><version>1.0.0.14</version>
+ <author>BinyamFS</author><version>1.0.0.15</version>
  <title><en>AD Row Tool</en></title>
  <description><en><![CDATA[Place straight rows of AutoDrive parking nodes from Construction, Decorations, Others. Primary or secondary nodes; adjustable maximum spacing from 1 to 10 metres.
 To see the placed nodes, you must be in a vehicle with AutoDrive's editor mode enabled. This is AutoDrive's requirement for node visibility.
 AutoDrive: Stephan Schlosser and the AutoDrive contributors. Official project: https://github.com/Stephan-S/FS25_AutoDrive
 Requires AutoDrive separately. Unofficial companion; not endorsed by the AutoDrive team. AutoDrive is not included or modified.
-Changelog 1.0.0.14: Keep row targeting and preview visible across placeables and inside buildings.
+Changelog 1.0.0.15: Keep row targeting and preview visible across placeables and inside buildings.
 Changelog 1.0.0.6: Respect the protected class metatable set by the base constructor.
 Changelog 1.0.0.5: Correct brush constructor and validate callbacks before activation.
 Changelog 1.0.0.4: Activate from the loaded preview when selection callbacks are cached.
@@ -16,7 +16,7 @@ Changelog 1.0.0.1: Initial testing build.]]></en><de><![CDATA[Gerade Reihen von 
 Um die gesetzten Knoten zu sehen, müssen Sie sich in einem Fahrzeug befinden und den Editormodus von AutoDrive aktivieren. Dies ist eine Voraussetzung von AutoDrive für die Knotensichtbarkeit.
 AutoDrive: Stephan Schlosser und die AutoDrive-Mitwirkenden. Offizielles Projekt: https://github.com/Stephan-S/FS25_AutoDrive
 AutoDrive muss separat installiert werden. Inoffizielle Erweiterung, keine offizielle Veröffentlichung des AutoDrive-Teams. AutoDrive wird nicht mitgeliefert oder verändert.
-Changelog 1.0.0.14: Zielerfassung und Vorschau über platzierbaren Objekten und in Gebäuden beibehalten.
+Changelog 1.0.0.15: Zielerfassung und Vorschau über platzierbaren Objekten und in Gebäuden beibehalten.
 Changelog 1.0.0.6: Geschützte Klassen-Metatabelle des Basiskonstruktors beibehalten.
 Changelog 1.0.0.5: Konstruktor und Prüfung vor der Aktivierung korrigiert.
 Changelog 1.0.0.4: Aktivierung über die geladene Vorschau ergänzt.
