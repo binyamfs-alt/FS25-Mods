@@ -1,8 +1,12 @@
-# BinyamFS Edition HUD for Courseplay v1.1.0.0
+# BinyamFS Edition HUD for Courseplay v1.1.0.1
 
 Mod for Farming Simulator
 
 An unofficial Courseplay companion with SAM styling, consistent buttons, compact vehicle names, custom vehicle names, implement names, and contextual tooltips. Courseplay remains separately updateable.
+
+## Changes in v1.1.0.1
+
+Moves the Silo Work settings up one row to fill the gap below the divider and clear the footer.
 
 ## Changes in v1.1.0.0
 
@@ -20,4 +24,4 @@ The complete preferred source is in [BinyamFS-Edition-Courseplay-Source.zip](Bin
 
 ## Validation
 
-GIANTS TestRunner 0.9.22 passed all modules for the installable ZIP. Checked against Courseplay 8.1.0.3. See [TestRunner report](TestRunner.xml) and [SHA256SUMS](SHA256SUMS).
+For v1.1.0.0, GIANTS TestRunner 0.9.22 passed all modules for the installable ZIP. Checked against Courseplay 8.1.0.3. See [TestRunner report](TestRunner.xml) and [SHA256SUMS](SHA256SUMS).

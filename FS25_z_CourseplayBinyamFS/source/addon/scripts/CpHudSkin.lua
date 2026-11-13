@@ -319,10 +319,15 @@ function CpHudSkin.prepareLayout(hud)
     local bodyTop=separatorY-sectionGap-2*py
     local function rowY(index) return bodyTop-height+(index-5)*rowPitch end
     local groups={}
-    local function visit(parent)
+    local function visit(parent, settingRowOffset)
+        -- Bunker Silo Work uses native rows 4 through 1. Move its settings
+        -- up one row to fill the space below the divider and clear the footer.
+        if parent == hud.bunkerSiloWorkerLayout then
+            settingRowOffset=1
+        end
         parent.skinLayoutBounds=nil
         parent.skinCenterText=nil
-        for _,child in ipairs(parent.children or {}) do visit(child) end
+        for _,child in ipairs(parent.children or {}) do visit(child, settingRowOffset) end
         if parent.overlay and parent.text == nil and parent ~= root
             and parent.overlay.width >= hud.width*0.95 then
             parent.skinHeaderPanel=parent.overlay.height>(hud.hMargin or line)*0.5
@@ -335,14 +340,17 @@ function CpHudSkin.prepareLayout(hud)
             -- All body icon buttons occupy the same right-hand column cell.
             bounds(parent,rightX,rowY(row(parent)),column)
         end
-        if parent.labelElement and parent.textElement then table.insert(groups,parent) end
+        if parent.labelElement and parent.textElement then
+            table.insert(groups,{element=parent,rowOffset=settingRowOffset})
+        end
     end
-    visit(root)
+    visit(root,0)
     -- CP keeps setting labels/values as siblings of their group container.
     -- Assign groups after traversing the whole tree so sibling visits cannot
     -- replace the shared numeric row with independently sized controls.
-    for _,parent in ipairs(groups) do
-        local y=rowY(row(parent.labelElement))
+    for _,group in ipairs(groups) do
+        local parent=group.element
+        local y=rowY(row(parent.labelElement)+group.rowOffset)
         bounds(parent.labelElement,left,y,column)
         if parent.incrementalElement or parent.decrementalElement then
             bounds(parent.decrementalElement,rightX,y,numericCell)
@@ -625,7 +633,8 @@ function CpHudSkin.assignTooltips(hud,groups)
     for _,name in ipairs({'fieldworkLayout','baleFinderLayout','combineUnloaderLayout','bunkerSiloWorkerLayout','siloLoaderWorkerLayout'}) do
         if hud[name] then annotate(hud[name]) end
     end
-    for _,group in ipairs(groups) do
+    for _,entry in ipairs(groups) do
+        local group=entry.element
         local label=group.labelElement.skinSourceText or group.labelElement.text or 'Setting'
         if group.incrementalElement or group.decrementalElement then
             group.labelElement.skinTooltipText='Reset ' .. label .. ' to Default'

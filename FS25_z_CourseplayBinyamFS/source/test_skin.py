@@ -1,5 +1,7 @@
 """Companion checks using Lua 5.1 and the original CP 8.1.0.3 source as a fixture."""
 import hashlib
+import sys
+from pathlib import Path
 import xml.etree.ElementTree as ET
 import zipfile
 from lupa.lua51 import LuaRuntime
@@ -18,7 +20,7 @@ assert sources == ['scripts/CpHudSkin.lua', 'scripts/CourseplayBinyamFS.lua']
 assert all(path in files for path in sources)
 assert not any(path.startswith(('config/', 'translations/', 'scripts/gui/')) for path in files)
 assert 'Courseplay.lua' not in files and 'FS25_Courseplay.zip' not in files
-fixture = __import__('pathlib').Path(r'C:/Users/benbu/Documents/Codex/2026-10-08/i-w/work/FS25-Courseplay-BinyamFS/FS25_Courseplay.zip')
+fixture = Path(sys.argv[1]) if len(sys.argv) > 1 else Path.home() / 'Documents/My Games/FarmingSimulator2025/mods/FS25_Courseplay.zip'
 assert hashlib.sha256(fixture.read_bytes()).hexdigest() == '44ce9c9fc6f193b7180a4ff6f147975fe75e2591ccae773ccfd254b96bcdc022'
 baseline = zipfile.ZipFile(fixture)
 lua.execute('''
@@ -358,6 +360,29 @@ page.courseVisibilityBtn=CpHudButtonElement.new(Overlay.new(nil,0.41,0.357,0.02,
 page.reverseCourseBtn:setCallback('onClickPrimary',{},noop)
 page.courseVisibilityBtn:setCallback('onClickPrimary',{},noop)
 CpHudSkin.prepareLayout(hud)
+-- Bunker silo rows 4 through 1 fill grid rows 5 through 2.
+local silo=CpHudElement.new(nil,hud.baseHud)
+hud.bunkerSiloWorkerLayout=silo
+local line=hud.lineHeight or 23/g_screenHeight
+local bottom=hud.baseHud.overlay.y+(hud.hMargin or line)
+local siloRows={}
+for i=1,4 do
+    local y=bottom+(i-1)*line
+    local setting=CpHudElement.new(nil,silo)
+    setting.labelElement=CpTextHudElement.new(silo,0.21,y,12)
+    setting.textElement=CpTextHudElement.new(silo,0.42,y,12,RenderText.ALIGN_RIGHT)
+    siloRows[i]=setting
+end
+CpHudSkin.prepareLayout(hud)
+local footer=hud.skinGrid.footerY
+local top=page.startingPointBtn.skinLayoutBounds[2]
+local pitch=(top-footer)/4
+for i,setting in ipairs(siloRows) do
+    local expected=footer+i*pitch
+    assert(math.abs(setting.labelElement.skinLayoutBounds[2]-expected)<0.000001)
+    assert(math.abs(setting.textElement.skinLayoutBounds[2]-expected)<0.000001)
+end
+assert(siloRows[1].labelElement.skinLayoutBounds[2]>=footer+hud.skinGrid.height)
 local remaining=hud.fieldworkLayout.timeRemainingText
 assert(remaining.skinGridText)
 assert(remaining.skinLayoutBounds[2]==hud.fieldworkLayout.startingPointBtn.skinLayoutBounds[2])
